@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #e6e8e4;
+  --surface: #eff1ed;
+  --ink: #14171c;
+  --muted: #5a616c;
+  --accent: #0f6e5c;
+  --accent-soft: color-mix(in oklab, var(--accent) 14%, transparent);
+  --line: color-mix(in oklab, var(--ink) 12%, transparent);
+  --background: var(--bg);
+  --foreground: var(--ink);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+.hero-plane {
+  background: var(--bg);
+}
+
+.hero-visual {
+  background:
+    radial-gradient(
+      120% 80% at 85% 15%,
+      color-mix(in oklab, var(--accent) 22%, transparent) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      90% 70% at 10% 90%,
+      color-mix(in oklab, #8a6b3d 18%, transparent) 0%,
+      transparent 50%
+    ),
+    linear-gradient(
+      160deg,
+      #dfe4de 0%,
+      #e8ebe5 42%,
+      #d5dbd4 100%
+    );
+}
+
+.hero-visual::after {
+  content: "";
+  position: absolute;
+  inset: 8% 4% auto auto;
+  width: min(46vw, 520px);
+  aspect-ratio: 4 / 5;
+  border: 1px solid color-mix(in oklab, var(--ink) 16%, transparent);
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in oklab, var(--ink) 4%, transparent) 100%
+    ),
+    repeating-linear-gradient(
+      -12deg,
+      transparent 0 18px,
+      color-mix(in oklab, var(--ink) 5%, transparent) 18px 19px
+    );
+  mask-image: linear-gradient(180deg, black 55%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero-grain {
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.hero-veil {
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--bg) 88%, transparent) 0%,
+    color-mix(in oklab, var(--bg) 55%, transparent) 48%,
+    transparent 78%
+  );
+  pointer-events: none;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 1.25rem;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: transform 180ms ease, background 180ms ease;
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0 1.1rem;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.btn-ghost:hover {
+  border-color: color-mix(in oklab, var(--ink) 35%, transparent);
+  background: color-mix(in oklab, var(--ink) 4%, transparent);
+}
+
+.link-quiet {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 220ms ease, color 180ms ease;
+}
+
+.link-quiet:hover {
+  background-size: 100% 1px;
+}
+
+.link-title {
+  text-decoration: none;
+  color: inherit;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 2px;
+  transition: background-size 280ms ease, color 180ms ease;
+}
+
+.link-title:hover {
+  background-size: 100% 2px;
+  color: var(--accent);
+}
+
+@media (max-width: 720px) {
+  .hero-visual::after {
+    width: min(58vw, 220px);
+    inset: 12% 5% auto auto;
+    opacity: 0.7;
+  }
+
+  .hero-veil {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in oklab, var(--bg) 35%, transparent) 35%,
+      color-mix(in oklab, var(--bg) 92%, transparent) 68%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .btn-primary:hover {
+    transform: none;
+  }
+}
