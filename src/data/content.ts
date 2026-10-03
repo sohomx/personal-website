@@ -126,6 +126,12 @@ export const sideProjects = [
     href: "https://github.com/sohomx/simtest",
   },
   {
+    title: "openissue",
+    blurb:
+      "a cli that turns langfuse and otel traces into an incident packet with the evidence cited, and a regression eval suggested from that packet. the model can explain what the detector found. it cannot change the finding.",
+    href: "https://github.com/sohomx/openissue",
+  },
+  {
     title: "evalsmith",
     blurb:
       "catch waste and drift from traces you already have: token-reuse, provider/model diffs, and regression trends.",
