@@ -5,9 +5,8 @@ import { useEffect, useState } from "react";
 import { site } from "@/data/content";
 
 const nav = [
+  { href: "/#about", label: "about" },
   { href: "/#work", label: "work" },
-  { href: "/#experiments", label: "experiments" },
-  { href: "/projects", label: "archive" },
   { href: "/#contact", label: "contact" },
 ];
 
@@ -32,11 +31,14 @@ export function Header() {
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-5 sm:px-8">
         <Link
           href="/"
-          className="font-[family-name:var(--font-display)] text-xl tracking-tight text-[var(--ink)]"
+          className="font-display text-2xl font-bold uppercase tracking-tight text-[var(--ink)]"
         >
           {site.name}
         </Link>
-        <nav className="flex items-center gap-4 text-sm text-[var(--muted)] sm:gap-6">
+        <nav
+          aria-label="Primary"
+          className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--muted)] sm:gap-6"
+        >
           {nav.map((item) => (
             <Link
               key={item.href}
