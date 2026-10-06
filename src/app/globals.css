@@ -47,14 +47,14 @@ body {
 .hero-visual {
   background:
     radial-gradient(
-      120% 80% at 85% 15%,
-      color-mix(in oklab, var(--accent) 22%, transparent) 0%,
-      transparent 55%
+      120% 80% at 85% 12%,
+      color-mix(in oklab, var(--accent) 26%, transparent) 0%,
+      transparent 58%
     ),
     radial-gradient(
-      90% 70% at 10% 90%,
-      color-mix(in oklab, #8a6b3d 18%, transparent) 0%,
-      transparent 50%
+      95% 70% at 8% 88%,
+      color-mix(in oklab, #3d5a52 16%, transparent) 0%,
+      transparent 52%
     ),
     linear-gradient(
       160deg,

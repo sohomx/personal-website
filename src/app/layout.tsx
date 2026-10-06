@@ -27,14 +27,17 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: site.title,
-    template: `%s · ${site.name}`,
+    template: `%s — ${site.fullName}`,
   },
   description: site.description,
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: site.title,
     description: site.description,
     url: site.url,
-    siteName: site.name,
+    siteName: site.fullName,
     locale: "en_IN",
     type: "website",
   },
@@ -44,9 +47,17 @@ export const metadata: Metadata = {
     description: site.description,
     creator: "@sxohom",
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html
       lang="en"
