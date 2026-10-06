@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, DM_Sans, IBM_Plex_Mono } from "next/font/google";
+import type { ReactNode } from "react";
+import { Big_Shoulders, Figtree, IBM_Plex_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { site } from "@/data/content";
 import "./globals.css";
 
-const display = Instrument_Serif({
+const display = Big_Shoulders({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+  weight: ["600", "700", "800"],
 });
 
-const body = DM_Sans({
+const body = Figtree({
   variable: "--font-body",
   subsets: ["latin"],
 });
@@ -27,14 +27,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: site.title,
-    template: `%s · ${site.name}`,
+    template: `%s · ${site.fullName}`,
   },
   description: site.description,
   openGraph: {
     title: site.title,
     description: site.description,
     url: site.url,
-    siteName: site.name,
+    siteName: site.fullName,
     locale: "en_IN",
     type: "website",
   },
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
