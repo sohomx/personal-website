@@ -19,25 +19,27 @@ export function Proof() {
         </Reveal>
         <ul className="mt-8 divide-y divide-[var(--line)] border-y border-[var(--line)]">
           {proofSignals.map((signal, index) => (
-            <Reveal key={signal.label} delay={Math.min(index * 0.04, 0.16)}>
-              <li className="grid gap-1 py-5 sm:grid-cols-[minmax(10rem,0.32fr)_1fr] sm:items-baseline sm:gap-8">
-                <span className="font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
-                  {signal.href ? (
-                    <a
-                      href={signal.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="link-title"
-                    >
-                      {signal.label}
-                    </a>
-                  ) : (
-                    signal.label
-                  )}
-                </span>
-                <span className="text-[var(--muted)]">{signal.detail}</span>
-              </li>
-            </Reveal>
+            <li key={signal.label} className="py-5">
+              <Reveal delay={Math.min(index * 0.04, 0.16)}>
+                <div className="grid gap-1 sm:grid-cols-[minmax(10rem,0.32fr)_1fr] sm:items-baseline sm:gap-8">
+                  <span className="font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
+                    {signal.href ? (
+                      <a
+                        href={signal.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="link-title"
+                      >
+                        {signal.label}
+                      </a>
+                    ) : (
+                      signal.label
+                    )}
+                  </span>
+                  <span className="text-[var(--muted)]">{signal.detail}</span>
+                </div>
+              </Reveal>
+            </li>
           ))}
         </ul>
       </div>

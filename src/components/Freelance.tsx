@@ -24,14 +24,14 @@ export function Freelance() {
 
         <ul className="mt-12 grid gap-8 sm:grid-cols-2">
           {freelance.offers.map((offer, index) => (
-            <Reveal key={offer.title} delay={Math.min(index * 0.05, 0.2)}>
-              <li>
+            <li key={offer.title}>
+              <Reveal delay={Math.min(index * 0.05, 0.2)}>
                 <h3 className="font-[family-name:var(--font-display)] text-xl text-[var(--ink)]">
                   {offer.title}
                 </h3>
                 <p className="mt-2 text-[var(--muted)]">{offer.body}</p>
-              </li>
-            </Reveal>
+              </Reveal>
+            </li>
           ))}
         </ul>
 

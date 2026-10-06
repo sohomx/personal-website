@@ -28,8 +28,8 @@ export function Work() {
 
         <ol className="mt-14 list-none space-y-0 p-0">
           {projects.map((project, index) => (
-            <Reveal key={project.slug} delay={Math.min(index * 0.05, 0.2)}>
-              <li className="border-t border-[var(--line)] py-10">
+            <li key={project.slug} className="border-t border-[var(--line)] py-10">
+              <Reveal delay={Math.min(index * 0.05, 0.2)}>
                 <article className="grid gap-4 md:grid-cols-[auto_1fr_auto] md:items-baseline md:gap-10">
                   <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
                     {String(index + 1).padStart(2, "0")}
@@ -70,8 +70,8 @@ export function Work() {
                     {project.title} writeup
                   </Link>
                 </article>
-              </li>
-            </Reveal>
+              </Reveal>
+            </li>
           ))}
         </ol>
       </div>

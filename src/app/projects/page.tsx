@@ -31,8 +31,8 @@ export default function ProjectsIndexPage() {
 
       <ol className="mt-14 list-none space-y-0 border-t border-[var(--line)] p-0">
         {projects.map((project, index) => (
-          <Reveal key={project.slug} delay={Math.min(index * 0.05, 0.2)}>
-            <li className="border-b border-[var(--line)] py-8">
+          <li key={project.slug} className="border-b border-[var(--line)] py-8">
+            <Reveal delay={Math.min(index * 0.05, 0.2)}>
               <article>
                 <h2 className="font-[family-name:var(--font-display)] text-2xl text-[var(--ink)] sm:text-3xl">
                   <Link
@@ -52,8 +52,8 @@ export default function ProjectsIndexPage() {
                   {project.title} writeup
                 </Link>
               </article>
-            </li>
-          </Reveal>
+            </Reveal>
+          </li>
         ))}
       </ol>
     </div>
