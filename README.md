@@ -1,8 +1,6 @@
 # sohom
 
-Personal site for [sohom](https://github.com/sohomx) — AI engineer at Pocket.
-
-Content adapted from the previous Bear Blog at https://sohom.bearblog.dev/
+Personal site for [Sohom Pal](https://github.com/sohomx) — AI engineer building the proof layer for agents.
 
 ## Develop
 
@@ -22,6 +20,8 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Notes
 
-- Site copy lives in `src/data/content.ts`
-- Add an email CTA in `Contact` / `content.ts` when you want it public
-- Domain metadata currently points at `https://sohom.xyz`
+- Site copy lives in `src/data/content.ts` (five project writeups + home teasers)
+- Routes: `/`, `/projects`, `/projects/[slug]`
+- SEO: `sitemap.ts`, `robots.ts`, Person/CreativeWork JSON-LD, Open Graph image
+- Set `site.email` in `content.ts` when a public address is ready (Contact falls back to X/GitHub)
+- Domain metadata points at `https://sohom.xyz`
