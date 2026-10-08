@@ -221,7 +221,11 @@ a:hover {
 
 /* Tools page */
 .tools-section {
-  margin-top: 2.25rem;
+  margin-top: 2.75rem;
+}
+
+.tools-section-primary {
+  margin-top: 3.25rem;
 }
 
 .tools-cat,
@@ -233,46 +237,171 @@ a:hover {
   color: var(--muted);
 }
 
-.tools-grid {
+.section-lead {
+  margin: 0.55rem 0 0;
+  max-width: 40rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--faint);
+}
+
+.built-grid {
   width: min(100% - 2.5rem, 52rem);
-  margin: 0.85rem auto 0;
+  margin: 0.95rem auto 0;
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.75rem;
 }
 
 @media (min-width: 720px) {
-  .tools-grid {
+  .built-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.85rem;
   }
 }
 
-.tool-card {
+.built-card,
+.knowing-card {
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.5rem;
   min-width: 0;
-  padding: 0.9rem 1rem;
+  padding: 0.95rem 1rem;
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  background: color-mix(in srgb, var(--field) 55%, transparent);
-  transition:
-    border-color 160ms ease,
-    transform 160ms ease,
-    box-shadow 160ms ease;
+  border-radius: 0.65rem;
+  background: color-mix(in srgb, var(--field) 45%, transparent);
 }
 
-.tool-card:hover {
-  border-color: color-mix(in srgb, var(--ink) 18%, var(--border));
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgb(0 0 0 / 0.04);
+.built-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.built-name {
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.built-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.85rem;
+  margin: 0.1rem 0 0;
+}
+
+.built-link {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+  text-decoration-color: color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+.built-link:hover {
+  color: var(--ink);
+  text-decoration-color: var(--ink);
+}
+
+.test-rules {
+  margin: 1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.test-rule {
+  padding-bottom: 1.05rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+}
+
+.test-rule:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.test-rule-title {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.test-rule-title strong {
+  font-weight: 600;
+}
+
+.test-rule-n {
+  font-variant-numeric: tabular-nums;
+  color: var(--faint);
+  font-weight: 500;
+}
+
+.test-rule-detail {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 42rem;
+}
+
+.test-rule-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.55rem 0 0;
+}
+
+.rule-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--border) 90%, transparent);
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, var(--field) 70%, transparent);
+  color: var(--faint);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.35;
+}
+
+.stack-group {
+  margin-top: 1.15rem;
+}
+
+.stack-group-title {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: lowercase;
+  color: var(--faint);
+}
+
+.stack-list {
+  width: min(100% - 2.5rem, 52rem);
+  margin: 0.55rem auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.stack-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid color-mix(in srgb, var(--border) 88%, transparent);
+  border-radius: 0.5rem;
+  background: color-mix(in srgb, var(--field) 35%, transparent);
 }
 
 .tool-head {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.55rem;
   text-decoration: none;
   color: inherit;
   width: fit-content;
@@ -286,15 +415,21 @@ a:hover {
 .tool-logo {
   width: 28px;
   height: 28px;
-  border-radius: 0.4rem;
+  border-radius: 0.35rem;
   object-fit: cover;
   background: var(--field);
   border: 1px solid var(--border);
   flex-shrink: 0;
 }
 
+.tool-logo-sm {
+  width: 22px;
+  height: 22px;
+  border-radius: 0.3rem;
+}
+
 .tool-name {
-  font-size: 0.98rem;
+  font-size: 0.92rem;
   font-weight: 500;
   line-height: 1.3;
   text-decoration: underline;
@@ -314,7 +449,7 @@ a:hover {
 
 .tool-take {
   margin: 0;
-  font-size: 0.875rem;
+  font-size: 0.84rem;
   line-height: 1.5;
   color: var(--muted);
 }
@@ -323,7 +458,7 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
   margin: 0;
 }
 
@@ -337,12 +472,12 @@ a:hover {
 .used-chip {
   display: inline-flex;
   align-items: center;
-  padding: 0.15rem 0.5rem;
+  padding: 0.12rem 0.45rem;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--bg);
   color: var(--muted);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   line-height: 1.35;
   text-decoration: none;
 }
@@ -351,6 +486,80 @@ a:hover {
   opacity: 1;
   color: var(--ink);
   border-color: color-mix(in srgb, var(--ink) 22%, var(--border));
+}
+
+.knowing-grid {
+  width: min(100% - 2.5rem, 52rem);
+  margin: 0.9rem auto 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
+}
+
+@media (min-width: 720px) {
+  .knowing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+}
+
+.knowing-org {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--faint);
+}
+
+.knowing-tag {
+  margin: 0.15rem 0 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.03em;
+  color: var(--faint);
+}
+
+.reading-list {
+  margin: 1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.reading-item {
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 85%, transparent);
+}
+
+.reading-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.reading-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.16em;
+  text-decoration-color: color-mix(in srgb, var(--ink) 24%, transparent);
+}
+
+.reading-title:hover {
+  text-decoration-color: var(--ink);
+}
+
+.reading-meta {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: var(--faint);
+}
+
+.reading-note {
+  margin: 0.3rem 0 0;
+  max-width: 42rem;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--muted);
 }
 
 .code-with-list {
@@ -1019,13 +1228,11 @@ a:hover {
     transition: none !important;
   }
 
-  .buy-tile,
-  .tool-card {
+  .buy-tile {
     transition: none;
   }
 
-  .buy-card:hover .buy-tile,
-  .tool-card:hover {
+  .buy-card:hover .buy-tile {
     transform: none;
     box-shadow: none;
   }
