@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { OpenIssueDemo } from "@/components/OpenIssueDemo";
-import { gauntletWeighting, getProject, projects } from "@/data/content";
+import { ProjectJsonLd } from "@/components/ProjectJsonLd";
+import { gauntletWeighting, getProject, projects, site } from "@/data/content";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -23,9 +24,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       canonical: `/projects/${project.slug}/`,
     },
     openGraph: {
-      title: `${project.title} · sohom`,
+      title: `${project.title} · ${site.fullName}`,
       description: project.metaDescription,
       url: `/projects/${project.slug}/`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} · ${site.fullName}`,
+      description: project.metaDescription,
+      creator: "@sxohom",
     },
   };
 }
@@ -38,14 +45,18 @@ export default async function ProjectPage({ params }: Props) {
   const index = projects.findIndex((p) => p.slug === project.slug);
   const prev = index > 0 ? projects[index - 1] : null;
   const next = index < projects.length - 1 ? projects[index + 1] : null;
+  const showGauntlet = project.slug === "solana-agent-safety";
+  const showOpenIssueDemo = project.slug === "openissue";
 
   return (
     <article className="site-shell py-10">
+      <ProjectJsonLd project={project} />
       <p className="text-sm text-muted">
         <Link href="/#projects" className="quiet-link">
-          ← stuff i&apos;ve made
+          back to projects
         </Link>
       </p>
+
       <header className="mt-6">
         <h1 className="text-[1.75rem] font-medium tracking-tight sm:text-[1.875rem]">
           {project.title}
@@ -68,7 +79,7 @@ export default async function ProjectPage({ params }: Props) {
           </h2>
           <ul className="mt-3 list-none space-y-2 p-0 text-sm text-muted">
             {project.did.map((item) => (
-              <li key={item}>– {item}</li>
+              <li key={item}>- {item}</li>
             ))}
           </ul>
         </section>
@@ -78,19 +89,27 @@ export default async function ProjectPage({ params }: Props) {
           </h2>
           <ul className="mt-3 list-none space-y-2 p-0 text-sm text-muted">
             {project.how.map((item) => (
-              <li key={item}>– {item}</li>
+              <li key={item}>- {item}</li>
             ))}
           </ul>
         </section>
       </div>
 
-      {project.slug === "solana-agent-safety" ? (
-        <pre className="code-block mt-10 overflow-x-auto p-4 whitespace-pre-wrap">
-          {gauntletWeighting}
-        </pre>
+      {showGauntlet ? (
+        <section className="mt-12" aria-labelledby="score-heading">
+          <h2 id="score-heading" className="text-sm font-medium">
+            score weighting
+          </h2>
+          <p className="mt-2 text-sm text-muted">
+            from the gauntlet readme. real score formula, not a mock.
+          </p>
+          <pre className="code-block mt-5 overflow-x-auto p-4 whitespace-pre-wrap">
+            {gauntletWeighting}
+          </pre>
+        </section>
       ) : null}
 
-      {project.slug === "openissue" ? <OpenIssueDemo /> : null}
+      {showOpenIssueDemo ? <OpenIssueDemo /> : null}
 
       <section className="mt-12" aria-labelledby="images-heading">
         <h2 id="images-heading" className="text-sm font-medium">
@@ -127,14 +146,14 @@ export default async function ProjectPage({ params }: Props) {
       >
         {prev ? (
           <Link href={`/projects/${prev.slug}/`} className="quiet-link">
-            ← {prev.title}
+            previous: {prev.title}
           </Link>
         ) : (
           <span />
         )}
         {next ? (
           <Link href={`/projects/${next.slug}/`} className="quiet-link">
-            {next.title} →
+            next: {next.title}
           </Link>
         ) : (
           <span />

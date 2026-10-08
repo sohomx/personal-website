@@ -18,11 +18,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.4,
     },
+    {
+      url: `${site.url}/llms.txt`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${site.url}/llms-full.txt`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${site.url}/index.md`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
     ...projects.map((p) => ({
       url: `${site.url}/projects/${p.slug}/`,
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...projects.map((p) => ({
+      url: `${site.url}/projects/${p.slug}.md`,
+      lastModified,
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
     })),
   ];
 }

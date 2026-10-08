@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "npx --yes tsx scripts/emit-agent-text.ts",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "emit-agent-text": "npx --yes tsx scripts/emit-agent-text.ts"
   },
   "dependencies": {
     "next": "16.3.6",

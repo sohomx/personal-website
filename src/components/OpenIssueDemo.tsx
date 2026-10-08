@@ -12,7 +12,7 @@ export function OpenIssueDemo() {
       </div>
       <p className="mt-2 text-sm text-muted">{d.note}</p>
       <p className="mono mt-1 text-xs text-faint">
-        fixture: {d.fixture} · window {d.window.from} → {d.window.to}
+        fixture: {d.fixture} · window {d.window.from} to {d.window.to}
       </p>
 
       <div className="mt-5 grid gap-4 lg:grid-cols-2">
@@ -42,7 +42,7 @@ export function OpenIssueDemo() {
           <p className="mt-4 text-faint">evidence</p>
           <ul className="mt-1 list-none space-y-1 p-0 text-muted">
             {d.finding.evidence.map((e) => (
-              <li key={e}>– {e}</li>
+              <li key={e}>- {e}</li>
             ))}
           </ul>
           <p className="mt-4 text-faint">{d.finding.limitation}</p>

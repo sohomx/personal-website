@@ -17,14 +17,14 @@ export function Contact() {
         <a
           className="quiet-link"
           href={site.links.x}
-          rel="noopener noreferrer"
+          rel="me noopener noreferrer"
         >
           x / @sxohom
         </a>
         <a
           className="quiet-link"
           href={site.links.github}
-          rel="noopener noreferrer"
+          rel="me noopener noreferrer"
         >
           github
         </a>

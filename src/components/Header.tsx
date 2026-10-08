@@ -9,7 +9,7 @@ export function Header() {
         aria-label="primary"
       >
         <Link href="/" className="quiet-link text-ink">
-          {site.name}
+          {site.displayName}
         </Link>
         <Link href="/#projects" className="quiet-link">
           projects

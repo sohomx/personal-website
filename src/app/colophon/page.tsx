@@ -1,19 +1,27 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "colophon",
   description:
-    "fonts, colours, stack, and how this site was built. no tracking.",
+    "Colophon for Sohom Pal's site: fonts, colours, stack, and how it was built. No tracking.",
   alternates: { canonical: "/colophon/" },
+  openGraph: {
+    title: "colophon · Sohom Pal",
+    description:
+      "Colophon for Sohom Pal's site: fonts, colours, stack, and how it was built. No tracking.",
+    url: "/colophon/",
+  },
 };
 
 export default function ColophonPage() {
   return (
     <article className="site-shell py-10">
+      <JsonLd />
       <p className="text-sm text-muted">
         <Link href="/" className="quiet-link">
-          ← home
+          back to home
         </Link>
       </p>
       <h1 className="mt-6 text-[1.75rem] font-medium tracking-tight sm:text-[1.875rem]">

@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="site-shell mt-16 border-t border-border py-8">
       <p className="text-sm text-muted">
         <Link href="/" className="quiet-link text-ink">
-          {site.name}
+          {site.displayName}
         </Link>
         {" · "}
         <Link href="/colophon/" className="quiet-link">
@@ -15,6 +15,10 @@ export function Footer() {
         {" · "}
         <a href="/llms.txt" className="quiet-link">
           llms.txt
+        </a>
+        {" · "}
+        <a href="/llms-full.txt" className="quiet-link">
+          llms-full.txt
         </a>
         {" · no tracking"}
       </p>

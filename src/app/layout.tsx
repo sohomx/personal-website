@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 import { IBM_Plex_Mono } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { JsonLd } from "@/components/JsonLd";
 import { site } from "@/data/content";
 import "./globals.css";
 
@@ -17,7 +16,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: site.title,
-    template: `%s · ${site.name}`,
+    template: `%s · ${site.fullName}`,
   },
   description: site.description,
   alternates: {
@@ -27,7 +26,7 @@ export const metadata: Metadata = {
     title: site.title,
     description: site.description,
     url: site.url,
-    siteName: site.name,
+    siteName: site.fullName,
     locale: "en_IN",
     type: "website",
   },
@@ -41,6 +40,8 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  authors: [{ name: site.fullName, url: site.url }],
+  creator: site.fullName,
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -55,7 +56,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {children}
         </main>
         <Footer />
-        <JsonLd />
       </body>
     </html>
   );

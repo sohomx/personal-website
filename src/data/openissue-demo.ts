@@ -1,6 +1,6 @@
 /** Static render of the public OpenIssue demo fixture.
  * Source: @sxohom/openissue examples/probable-execution-worker-unavailable.json
- * Labelled demo fixture — not a production Pocket incident.
+ * Labelled demo fixture: not a production Pocket incident.
  */
 
 export const openissueDemo = {
