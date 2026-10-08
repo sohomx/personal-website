@@ -30,24 +30,24 @@ export const buyItems: BuyItem[] = [
   {
     slug: "laptop-stand",
     name: "amazon basics foldable laptop stand",
-    price: "$25",
+    price: "$3",
     reason:
       "raises the screen to eye level for a few dollars. neck pain is not a personality trait.",
-    href: "https://www.amazon.com/Amazon-Basics-Portable-Adjustable-Notebook/dp/B0BLRJ4R8F",
+    href: "https://www.amazon.in/dp/B0BSXDGL49",
     image: "/buy/laptop-stand.webp",
     image2x: "/buy/laptop-stand@2x.webp",
-    alt: "Amazon Basics silver foldable laptop stand",
+    alt: "Amazon Basics foldable laptop stand",
   },
   {
     slug: "blackout-curtains",
-    name: "amazon basics blackout curtains",
-    price: "$23",
+    name: "Solimo blackout curtains",
+    price: "$6",
     reason:
       "bangalore streetlights are not a sleep schedule. these make naps actually work.",
-    href: "https://www.amazon.com/Amazon-Basics-TEX-1806/dp/B07B43SSM4",
+    href: "https://www.amazon.in/Amazon-Brand-Polyester-Blackout-Curtains/dp/B0C656ZR1P",
     image: "/buy/blackout-curtains.webp",
     image2x: "/buy/blackout-curtains@2x.webp",
-    alt: "Amazon Basics blackout curtain panels",
+    alt: "Solimo blackout curtain set of two panels",
   },
   {
     slug: "router-ups",
@@ -107,7 +107,7 @@ export const buyItems: BuyItem[] = [
   {
     slug: "spigen-charger",
     name: "Spigen 70W GaN dual USB-C charger",
-    price: "$17",
+    price: "$19",
     reason:
       "one brick for the mac and the phone. leave the stock chargers in the drawer.",
     href: "https://www.amazon.com/Spigen-ArcStation-Pro-GaN-Charger/dp/B08PS5B2H8",
@@ -161,7 +161,7 @@ export const buyItems: BuyItem[] = [
   {
     slug: "kindle-paperwhite",
     name: "Kindle Paperwhite 16 GB",
-    price: "$150",
+    price: "$200",
     reason:
       "no tabs, no replies. just the book. weeks of battery if you leave wifi off.",
     href: "https://www.amazon.com/All-new-Amazon-Kindle-Paperwhite-glare-free/dp/B0CFPJYX7P",
