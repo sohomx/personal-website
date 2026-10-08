@@ -1,84 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
+import { MetroMap } from "@/components/MetroMap";
+import { StationIndex } from "@/components/StationIndex";
 import {
   getPeopleStats,
   internetIntro,
-  personGroups,
-  type Person,
+  metroLines,
 } from "@/data/internet";
 
 export const metadata: Metadata = {
   title: "map of my internet",
   description:
-    "People Sohom Pal actually reads: evals and agents, dev tools, training and research, design sites, and collaborators.",
+    "A Namma Metro-style map of people Sohom Pal keeps going back to: 60 stations across topic lines for evals, agents, tools, research, systems, design, and writing.",
   alternates: { canonical: "/internet/" },
   openGraph: {
     title: "map of my internet · Sohom Pal",
     description:
-      "A short map of people Sohom replies to, reposts, or keeps in curated bookmarks.",
+      "People whose sites Sohom keeps going back to, drawn as a quiet Bangalore metro map.",
     url: "/internet/",
   },
   twitter: {
     title: "map of my internet · Sohom Pal",
     description:
-      "A short map of people Sohom replies to, reposts, or keeps in curated bookmarks.",
+      "People whose sites Sohom keeps going back to, drawn as a quiet Bangalore metro map.",
   },
 };
 
-function PersonCard({ person }: { person: Person }) {
-  const xHref = `https://x.com/${person.x}`;
-  return (
-    <li className="person-card">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        className="person-avatar"
-        src={person.avatar}
-        alt=""
-        width={44}
-        height={44}
-        loading="lazy"
-        decoding="async"
-      />
-      <div className="person-meta">
-        <a
-          href={person.href}
-          className="person-name"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          {person.name}
-        </a>
-        <p className="person-links">
-          <a
-            href={person.href}
-            className="person-domain"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            {person.domain}
-            <span aria-hidden="true"> ↗</span>
-          </a>
-          <span className="person-sep" aria-hidden="true">
-            ·
-          </span>
-          <a
-            href={xHref}
-            className="person-x"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            @{person.x}
-          </a>
-        </p>
-        <p className="person-note">{person.note}</p>
-      </div>
-    </li>
-  );
-}
-
 export default function InternetPage() {
-  const { personCount, topicCount } = getPeopleStats();
+  const { personCount, lineCount } = getPeopleStats();
 
   return (
     <article className="py-10">
@@ -95,28 +45,27 @@ export default function InternetPage() {
         </h1>
         <p className="mt-4 max-w-xl text-muted">{internetIntro.lead}</p>
         <p className="mt-3 text-sm text-faint">
-          {personCount} people, {topicCount} topics
+          {personCount} stations, {lineCount} lines
         </p>
+        <ul className="metro-legend list-none p-0" aria-label="line legend">
+          {metroLines.map((line) => (
+            <li key={line.id} className="metro-legend-item">
+              <span
+                className="metro-chip"
+                style={{ background: line.color }}
+                aria-hidden="true"
+              />
+              <span>{line.name}</span>
+            </li>
+          ))}
+        </ul>
       </div>
 
-      {personGroups.map((group) => (
-        <section
-          key={group.id}
-          className="people-section"
-          aria-labelledby={group.id}
-        >
-          <div className="site-shell">
-            <h2 id={group.id} className="people-cat">
-              {group.title}
-            </h2>
-          </div>
-          <ul className="people-grid list-none p-0">
-            {group.people.map((person) => (
-              <PersonCard key={person.id} person={person} />
-            ))}
-          </ul>
-        </section>
-      ))}
+      <div className="metro-shell mt-8">
+        <MetroMap lines={metroLines} />
+      </div>
+
+      <StationIndex lines={metroLines} />
     </article>
   );
 }

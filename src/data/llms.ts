@@ -152,7 +152,7 @@ ${nowLine}
 - [Full plain text](${site.url}/llms-full.txt): every page in one file
 - [Colophon](${site.url}/colophon/)
 - [Tools](${site.url}/tools/): evals, tracing, testing, sims. [md](${site.url}/tools.md)
-- [Internet](${site.url}/internet/): people i actually read. [md](${site.url}/internet.md)
+- [Internet](${site.url}/internet/): metro map of people i keep going back to (60 stations). [md](${site.url}/internet.md)
 - [Things you could buy](${site.url}/buy/): desk, sleep, software, and a MacBook Pro
 
 ## Projects
