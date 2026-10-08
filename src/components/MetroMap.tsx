@@ -9,11 +9,21 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import type { MetroLine, Person } from "@/data/internet";
+import {
+  interchangeIds,
+  type MetroLine,
+  type Person,
+} from "@/data/internet";
+import {
+  MAP_VIEW,
+  pathThrough,
+  stationPositions,
+  terminusAnchor,
+} from "@/data/metroLayout";
 
 type StationRef = {
-  line: MetroLine;
   person: Person;
+  lines: MetroLine[];
 };
 
 type Props = {
@@ -50,7 +60,12 @@ export function MetroMap({ lines }: Props) {
     const map = new Map<string, StationRef>();
     for (const line of lines) {
       for (const person of line.people) {
-        map.set(person.id, { line, person });
+        const prev = map.get(person.id);
+        if (prev) {
+          prev.lines.push(line);
+        } else {
+          map.set(person.id, { person, lines: [line] });
+        }
       }
     }
     return map;
@@ -93,20 +108,6 @@ export function MetroMap({ lines }: Props) {
     };
   }, [openId, placeTooltip]);
 
-  const labelW = 168;
-  const padR = 28;
-  const trackStart = labelW + 16;
-  const svgW = 980;
-  const rowH = 64;
-  const svgH = 28 + lines.length * rowH;
-  const trackEnd = svgW - padR;
-  const usable = trackEnd - trackStart;
-
-  function stationX(count: number, i: number) {
-    if (count === 1) return trackStart + usable / 2;
-    return trackStart + (usable * i) / (count - 1);
-  }
-
   function openFromEl(id: string, el: Element) {
     setHoverId(id);
     placeTooltip(el);
@@ -115,6 +116,11 @@ export function MetroMap({ lines }: Props) {
   const tipLeft = anchor
     ? Math.min(Math.max(anchor.x, 120), wrapWidth - 120)
     : 0;
+
+  const svgW = MAP_VIEW.w;
+  const svgH = MAP_VIEW.h;
+
+  const uniqueStations = useMemo(() => [...stations.values()], [stations]);
 
   return (
     <div className="metro-wrap" ref={wrapRef}>
@@ -125,88 +131,120 @@ export function MetroMap({ lines }: Props) {
           role="img"
           aria-label="metro-style map of people by topic line"
         >
-          {lines.map((line, li) => {
-            const y = 36 + li * rowH;
-            const n = line.people.length;
+          {/* tracks */}
+          {lines.map((line) => {
+            const ids = line.people.map((p) => p.id);
             return (
-              <g key={line.id} className="metro-line-g">
-                <text
-                  x={8}
-                  y={y + 4}
-                  className="metro-line-label"
+              <path
+                key={`track-${line.id}`}
+                d={pathThrough(ids)}
+                fill="none"
+                stroke={line.color}
+                strokeWidth={6}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="metro-track"
+              />
+            );
+          })}
+
+          {/* terminus pills */}
+          {lines.map((line) => {
+            const ids = line.people.map((p) => p.id);
+            const t = terminusAnchor(ids[0], ids[1]);
+            const label = line.name;
+            const charW = 6.2;
+            const padX = 10;
+            const w = Math.max(52, label.length * charW + padX * 2);
+            const h = 18;
+            const x =
+              t.anchor === "end" ? t.x - w : t.anchor === "start" ? t.x : t.x - w / 2;
+            const y = t.y - h / 2;
+            return (
+              <g key={`term-${line.id}`} className="metro-terminus">
+                <rect
+                  x={x}
+                  y={y}
+                  width={w}
+                  height={h}
+                  rx={9}
+                  ry={9}
                   fill={line.color}
-                >
-                  {line.name}
-                </text>
-                <line
-                  x1={trackStart}
-                  y1={y}
-                  x2={trackEnd}
-                  y2={y}
-                  stroke={line.color}
-                  strokeWidth={5}
-                  strokeLinecap="round"
                 />
-                {line.people.map((person, i) => {
-                  const x = stationX(n, i);
-                  const isOpen = openId === person.id;
-                  return (
-                    <g key={person.id} transform={`translate(${x} ${y})`}>
-                      <a
-                        href={person.href}
-                        className="metro-station-link"
-                        data-station={person.id}
-                        aria-describedby={isOpen ? tipId : undefined}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        onMouseEnter={(e) =>
-                          openFromEl(person.id, e.currentTarget)
-                        }
-                        onFocus={(e) => openFromEl(person.id, e.currentTarget)}
-                        onClick={(e) => {
-                          if (openId !== person.id) {
-                            e.preventDefault();
-                            openFromEl(person.id, e.currentTarget);
-                          }
-                        }}
-                      >
-                        {line.interchange ? (
-                          <>
-                            <circle
-                              r={9}
-                              fill="#f7f7f8"
-                              stroke={line.color}
-                              strokeWidth={3}
-                            />
-                            <rect
-                              x={-4}
-                              y={-4}
-                              width={8}
-                              height={8}
-                              fill={line.color}
-                              transform="rotate(45)"
-                            />
-                          </>
-                        ) : (
-                          <circle
-                            r={isOpen ? 7 : 6}
-                            fill="#f7f7f8"
-                            stroke={line.color}
-                            strokeWidth={3}
-                          />
-                        )}
-                        <text
-                          y={22}
-                          textAnchor="middle"
-                          className="metro-station-name"
-                          fill="#666666"
-                        >
-                          {shortLabel(person.name)}
-                        </text>
-                      </a>
-                    </g>
-                  );
-                })}
+                <text
+                  x={x + w / 2}
+                  y={y + h / 2 + 0.5}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  className="metro-terminus-text"
+                >
+                  {label}
+                </text>
+              </g>
+            );
+          })}
+
+          {/* stations */}
+          {uniqueStations.map(({ person, lines: personLines }) => {
+            const pos = stationPositions[person.id];
+            if (!pos) return null;
+            const isX = interchangeIds.has(person.id);
+            const isOpen = openId === person.id;
+            const stroke = personLines[0]?.color ?? "#666";
+            const labelDy = pos.side === "above" ? -14 : 16;
+            return (
+              <g
+                key={person.id}
+                transform={`translate(${pos.x} ${pos.y})`}
+                className="metro-station-g"
+              >
+                <a
+                  href={person.href}
+                  className="metro-station-link"
+                  data-station={person.id}
+                  aria-describedby={isOpen ? tipId : undefined}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  onMouseEnter={(e) => openFromEl(person.id, e.currentTarget)}
+                  onFocus={(e) => openFromEl(person.id, e.currentTarget)}
+                  onClick={(e) => {
+                    if (openId !== person.id) {
+                      e.preventDefault();
+                      openFromEl(person.id, e.currentTarget);
+                    }
+                  }}
+                >
+                  {isX ? (
+                    <rect
+                      x={-8}
+                      y={-8}
+                      width={16}
+                      height={16}
+                      rx={3}
+                      ry={3}
+                      fill="#f7f7f8"
+                      stroke={stroke}
+                      strokeWidth={2.5}
+                      className="metro-interchange-mark"
+                    />
+                  ) : (
+                    <circle
+                      r={isOpen ? 7 : 6}
+                      fill="#f7f7f8"
+                      stroke={stroke}
+                      strokeWidth={3}
+                    />
+                  )}
+                  <text
+                    className="metro-station-name"
+                    fill="#555555"
+                    transform={`translate(0 ${labelDy}) rotate(${pos.angle})`}
+                    textAnchor={pos.anchor ?? "start"}
+                    dominantBaseline="middle"
+                  >
+                    {person.name}
+                  </text>
+                </a>
               </g>
             );
           })}
@@ -216,13 +254,10 @@ export function MetroMap({ lines }: Props) {
       <div className="metro-mobile" aria-label="transit map of people, mobile">
         {lines.map((line) => (
           <section key={line.id} className="metro-mobile-line">
-            <h3 className="metro-mobile-title" style={{ color: line.color }}>
-              <span
-                className="metro-chip"
-                style={{ background: line.color }}
-                aria-hidden="true"
-              />
-              {line.name}
+            <h3 className="metro-mobile-title">
+              <span className="metro-terminus-pill" style={{ background: line.color }}>
+                {line.name}
+              </span>
             </h3>
             <ol
               className="metro-mobile-stations"
@@ -230,12 +265,11 @@ export function MetroMap({ lines }: Props) {
             >
               {line.people.map((person) => {
                 const isOpen = openId === person.id;
+                const isX = interchangeIds.has(person.id);
                 return (
                   <li key={person.id} className="metro-mobile-station">
                     <span
-                      className={
-                        line.interchange ? "metro-dot metro-dot-x" : "metro-dot"
-                      }
+                      className={isX ? "metro-dot metro-dot-x" : "metro-dot"}
                       style={{
                         borderColor: line.color,
                         color: line.color,
@@ -279,7 +313,7 @@ export function MetroMap({ lines }: Props) {
             anchor
               ? {
                   left: tipLeft,
-                  top: Math.min(Math.max(anchor.y + 18, 12), 420),
+                  top: Math.min(Math.max(anchor.y + 18, 12), 520),
                   transform: "translate(-50%, 0)",
                 }
               : {
@@ -305,21 +339,16 @@ export function MetroMap({ lines }: Props) {
               <span aria-hidden="true"> ↗</span>
             </p>
             <p className="metro-tooltip-note">{openStation.person.note}</p>
-            <p
-              className="metro-tooltip-line"
-              style={{ color: openStation.line.color }}
-            >
-              {openStation.line.name}
+            <p className="metro-tooltip-lines">
+              {openStation.lines.map((line) => (
+                <span key={line.id} style={{ color: line.color }}>
+                  {line.name}
+                </span>
+              ))}
             </p>
           </div>
         </div>
       ) : null}
     </div>
   );
-}
-
-function shortLabel(name: string): string {
-  const clean = name.replace(/^@/, "");
-  if (clean.length <= 14) return clean;
-  return `${clean.slice(0, 12)}…`;
 }

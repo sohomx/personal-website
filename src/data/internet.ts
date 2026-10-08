@@ -15,14 +15,12 @@ export type MetroLineDef = {
   name: string;
   color: string;
   stationIds: string[];
-  interchange?: boolean;
 };
 
 export type MetroLine = {
   id: string;
   name: string;
   color: string;
-  interchange?: boolean;
   people: Person[];
 };
 
@@ -518,70 +516,146 @@ export const metroLineDefs: MetroLineDef[] = [
   {
     id: "eval-nerds",
     name: "eval nerds",
-    color: "#6B5B95",
-    stationIds: ["jason-liu", "nirant-kasliwal", "minh-nhat-nguyen", "andrew-ng", "prathosh-ap"],
+    color: "#6B4C9A",
+    stationIds: [
+      "jason-liu",
+      "nirant-kasliwal",
+      "minh-nhat-nguyen",
+      "andrew-ng",
+      "prathosh-ap",
+    ],
   },
   {
     id: "shipping-agents",
     name: "people shipping agents",
-    color: "#3E7A78",
-    stationIds: ["teknium", "pili", "sphinx", "phil", "simon-tokumin", "ghuubear"],
+    color: "#1A8A7A",
+    stationIds: [
+      "teknium",
+      "pili",
+      "jason-liu",
+      "phil",
+      "sphinx",
+      "simon-tokumin",
+      "ghuubear",
+    ],
   },
   {
     id: "coding-agent-gang",
     name: "coding agent gang",
-    color: "#4A6FA5",
-    stationIds: ["theo", "dax", "charlie-holtz", "thorsten-ball", "sunil-pai", "emanuele-di-pietro"],
+    color: "#2B6CB0",
+    stationIds: [
+      "theo",
+      "dax",
+      "charlie-holtz",
+      "thorsten-ball",
+      "sunil-pai",
+      "emanuele-di-pietro",
+    ],
   },
   {
     id: "indie-shippers",
     name: "indie shippers",
-    color: "#C07A45",
-    stationIds: ["pranav-hari", "tanmay-sonawane", "kyzo", "virgile-rietsch", "mageframe", "jitesh", "levelsio", "guru", "jamon-holmgren", "dhh"],
+    color: "#C75B12",
+    stationIds: [
+      "pranav-hari",
+      "tanmay-sonawane",
+      "kyzo",
+      "virgile-rietsch",
+      "mageframe",
+      "jitesh",
+      "sphinx",
+      "levelsio",
+      "guru",
+      "jamon-holmgren",
+      "dhh",
+    ],
   },
   {
     id: "gpu-line",
     name: "gpu poor and gpu rich",
-    color: "#3D7A5F",
-    stationIds: ["tokenbender", "elie-bakouch", "archie-sengupta", "maharshi", "vixhal"],
+    color: "#15803D",
+    stationIds: [
+      "tokenbender",
+      "elie-bakouch",
+      "archie-sengupta",
+      "maharshi",
+      "vixhal",
+      "sanskar-pandey",
+    ],
   },
   {
     id: "research-lists",
     name: "research lists",
-    color: "#A89040",
-    stationIds: ["ankit-jxa", "chris-barber", "sanyam-jain", "suhail", "nick"],
+    color: "#CA8A04",
+    stationIds: [
+      "andrew-ng",
+      "ankit-jxa",
+      "chris-barber",
+      "sanyam-jain",
+      "suhail",
+      "nick",
+    ],
   },
   {
     id: "systems-people",
     name: "systems people",
-    color: "#A85A52",
-    stationIds: ["arpit-bhayani", "daniel-lockyer", "devanshu-sharma", "can-duruk", "karan-shingde", "akshay"],
+    color: "#B91C1C",
+    stationIds: [
+      "arpit-bhayani",
+      "daniel-lockyer",
+      "sunil-pai",
+      "devanshu-sharma",
+      "can-duruk",
+      "shrinath",
+      "karan-shingde",
+      "akshay",
+    ],
   },
   {
     id: "personal-sites",
     name: "personal site enjoyers",
-    color: "#A86B78",
-    stationIds: ["judah", "ankit", "srijan", "siddharth", "sarv"],
+    color: "#DB2777",
+    stationIds: [
+      "judah",
+      "ankit",
+      "andrew-alimbuyuguen",
+      "srijan",
+      "henrik-karlsson",
+      "siddharth",
+      "sarv",
+    ],
   },
   {
     id: "design-nerds",
     name: "design nerds",
-    color: "#7A6B9A",
-    stationIds: ["andrew-alimbuyuguen", "felipe", "lenard-floeren", "ma-baytas"],
+    color: "#4338CA",
+    stationIds: [
+      "andrew-alimbuyuguen",
+      "felipe",
+      "lenard-floeren",
+      "ma-baytas",
+      "simon-sarris",
+    ],
   },
   {
     id: "long-essays",
     name: "long essays",
-    color: "#5E6670",
-    stationIds: ["henrik-karlsson", "paras-chopra", "zara-zhang", "simon-sarris", "chris-lakin", "christian"],
+    color: "#475569",
+    stationIds: [
+      "henrik-karlsson",
+      "paras-chopra",
+      "zara-zhang",
+      "simon-sarris",
+      "chris-lakin",
+      "christian",
+    ],
   },
   {
     id: "build-with",
     name: "people i build with",
-    color: "#9A7B4F",
+    color: "#92400E",
     stationIds: ["sanskar-pandey", "shrinath"],
-    interchange: true,
-  }
+  },
 ];
 
 function withAvatar(p: Omit<Person, "avatar">): Person {
@@ -592,13 +666,25 @@ export const metroLines: MetroLine[] = metroLineDefs.map((line) => ({
   id: line.id,
   name: line.name,
   color: line.color,
-  interchange: line.interchange,
   people: line.stationIds.map((id) => {
     const person = PEOPLE[id];
     if (!person) throw new Error(`missing person: ${id}`);
     return withAvatar(person);
   }),
 }));
+
+/** People who sit on two or more lines (drawn as interchange markers). */
+export const interchangeIds: ReadonlySet<string> = (() => {
+  const counts = new Map<string, number>();
+  for (const line of metroLineDefs) {
+    for (const id of line.stationIds) {
+      counts.set(id, (counts.get(id) ?? 0) + 1);
+    }
+  }
+  return new Set(
+    [...counts.entries()].filter(([, n]) => n > 1).map(([id]) => id),
+  );
+})();
 
 /** Alias for older call sites. */
 export const personGroups = metroLines.map((line) => ({
@@ -612,9 +698,12 @@ export function getPeopleStats(): {
   lineCount: number;
   topicCount: number;
 } {
-  const personCount = metroLines.reduce((n, l) => n + l.people.length, 0);
+  const ids = new Set<string>();
+  for (const line of metroLines) {
+    for (const p of line.people) ids.add(p.id);
+  }
   return {
-    personCount,
+    personCount: ids.size,
     lineCount: metroLines.length,
     topicCount: metroLines.length,
   };

@@ -410,7 +410,7 @@ a:hover {
 }
 
 .metro-shell {
-  width: min(100% - 1.5rem, 62rem);
+  width: min(100% - 1.5rem, 72rem);
   margin-inline: auto;
 }
 
@@ -418,8 +418,10 @@ a:hover {
   position: relative;
   border: 1px solid var(--border);
   border-radius: 0.85rem;
-  background: color-mix(in srgb, var(--field) 40%, var(--bg));
-  padding: 1.25rem 0.6rem 1rem;
+  background:
+    radial-gradient(ellipse at 20% 10%, color-mix(in srgb, #d8d2c4 35%, transparent), transparent 50%),
+    color-mix(in srgb, var(--field) 55%, var(--bg));
+  padding: 1.1rem 0.5rem 0.85rem;
   overflow: visible;
 }
 
@@ -446,18 +448,42 @@ a:hover {
   width: 100%;
   height: auto;
   color: var(--ink);
+  overflow: visible;
 }
 
-.metro-line-label {
-  font-size: 12px;
-  font-weight: 500;
+.metro-track {
+  opacity: 0.92;
+}
+
+.metro-terminus-text {
+  fill: #faf8f5;
+  font-size: 9px;
+  font-weight: 600;
   font-family: inherit;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+}
+
+.metro-terminus-pill {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  color: #faf8f5;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
 }
 
 .metro-station-name {
-  font-size: 10px;
+  font-size: 11px;
+  font-weight: 500;
   font-family: inherit;
   fill: var(--muted);
+  paint-order: stroke;
+  stroke: color-mix(in srgb, var(--bg) 88%, transparent);
+  stroke-width: 3px;
+  stroke-linejoin: round;
 }
 
 .metro-station-link {
@@ -524,9 +550,8 @@ a:hover {
 }
 
 .metro-dot-x {
-  border-radius: 0.15rem;
-  transform: rotate(45deg);
-  background: currentColor !important;
+  border-radius: 0.2rem;
+  background: var(--bg) !important;
 }
 
 .metro-mobile-name {
@@ -589,10 +614,22 @@ a:hover {
   color: var(--muted);
 }
 
-.metro-tooltip-line {
+.metro-tooltip-line,
+.metro-tooltip-lines {
   margin: 0.4rem 0 0;
   font-size: 0.7rem;
   font-weight: 500;
+}
+
+.metro-tooltip-lines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.7rem;
+}
+
+.station-index-xfer {
+  color: var(--faint);
+  font-size: 0.75em;
 }
 
 .station-index {

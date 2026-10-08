@@ -1,4 +1,4 @@
-import type { MetroLine } from "@/data/internet";
+import { interchangeIds, type MetroLine } from "@/data/internet";
 
 export function StationIndex({ lines }: { lines: MetroLine[] }) {
   return (
@@ -17,11 +17,11 @@ export function StationIndex({ lines }: { lines: MetroLine[] }) {
           <div className="site-shell">
             <h3 className="station-index-line-name">
               <span
-                className="metro-chip"
+                className="metro-terminus-pill"
                 style={{ background: line.color }}
-                aria-hidden="true"
-              />
-              {line.name}
+              >
+                {line.name}
+              </span>
             </h3>
           </div>
           <ul className="station-index-list list-none p-0">
@@ -45,6 +45,12 @@ export function StationIndex({ lines }: { lines: MetroLine[] }) {
                     target="_blank"
                   >
                     {person.name}
+                    {interchangeIds.has(person.id) ? (
+                      <span className="station-index-xfer" title="interchange">
+                        {" "}
+                        ◎
+                      </span>
+                    ) : null}
                   </a>
                   <p className="station-index-links">
                     <a

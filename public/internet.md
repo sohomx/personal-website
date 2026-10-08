@@ -18,8 +18,9 @@ Author: [Sohom Pal](https://sxohom.xyz/)
 
 - [Teknium](https://github.com/teknium1) ([github.com](https://github.com/teknium1), [@Teknium](https://x.com/Teknium)): cofounder and lead engineer of hermes agent at nous research, previously at stability. hermes started as agent building blocks for data generation and rl.
 - [pili](https://0xpili.xyz) ([0xpili.xyz](https://0xpili.xyz), [@0xpili_](https://x.com/0xpili_)): writes "thoughtful technology" essays on crypto, ai and being human, like the agentic middle layer and requests for agentfi primitives. got her agents writing in simplified technical english to cut the slop.
-- [sphinx](https://sphinxstack.com) ([sphinxstack.com](https://sphinxstack.com), [@protosphinx](https://x.com/protosphinx)): founder of deskera, now building erp.ai and a pile of open things: partmode (cad), bomwiki and sphinxstack, a free library of agent skills. writes short posts about agency.
+- [jason liu](https://jxnl.co) ([jxnl.co](https://jxnl.co), [@jxnlco](https://x.com/jxnlco)): dx engineer on the codex team at openai, made instructor. his site mixes rag, agents and evals with posts on ambition and self-worth, on purpose.
 - [Phil](https://practicecents.com) ([practicecents.com](https://practicecents.com), [@Phil_Holland](https://x.com/Phil_Holland)): post-training lead at spacexai, air force veteran, trained at eastman school of music. made a mac skill that talks to reminders, calendar, notes, contacts and messages. his profile links a free tuner and metronome for band kids.
+- [sphinx](https://sphinxstack.com) ([sphinxstack.com](https://sphinxstack.com), [@protosphinx](https://x.com/protosphinx)): founder of deskera, now building erp.ai and a pile of open things: partmode (cad), bomwiki and sphinxstack, a free library of agent skills. writes short posts about agency.
 - [Simon](https://x.com/tokumin) ([x.com](https://x.com/tokumin), [@tokumin](https://x.com/tokumin)): builds products at google labs, currently thinking about family assistants.
 - [@ghuubear](https://snakeoilsalesman.in) ([snakeoilsalesman.in](https://snakeoilsalesman.in), [@ghuubear](https://x.com/ghuubear)): lead yapper at metaforms. his blog is about truth and deception, with posts like "the real bottleneck for autonomous agents is usable context" and "why llm writing feels dead".
 
@@ -40,6 +41,7 @@ Author: [Sohom Pal](https://sxohom.xyz/)
 - [Virgile Rietsch](https://go.blitzreels.com/x) ([go.blitzreels.com](https://go.blitzreels.com/x), [@virgilerietsch](https://x.com/virgilerietsch)): building blitzreels, a video clipping agent. also open sourced blitzclean, a ram monitor and disk cleaner for mac.
 - [mageframe](https://github.com/mageframe) ([github.com](https://github.com/mageframe), [@mageframeEXE](https://x.com/mageframeEXE)): built zero, which watches your screen and writes a timeline of your day. also wired pokémon red's memory into a video model to make an endless anime.
 - [jitesh](https://jiteshcodes.com) ([jiteshcodes.com](https://jiteshcodes.com), [@Jitesh_117](https://x.com/Jitesh_117)): lives in vim. built and open sourced vim royale, multiplayer vim duels with elo. engineer at consuma, keeps a learning blog.
+- [sphinx](https://sphinxstack.com) ([sphinxstack.com](https://sphinxstack.com), [@protosphinx](https://x.com/protosphinx)): founder of deskera, now building erp.ai and a pile of open things: partmode (cad), bomwiki and sphinxstack, a free library of agent skills. writes short posts about agency.
 - [@levelsio](https://levels.io) ([levels.io](https://levels.io), [@levelsio](https://x.com/levelsio)): builds startups alone and bootstrapped: nomads.com, remote ok, photo ai, interior ai. wrote a book called make.
 - [guru](https://hackyguru.com) ([hackyguru.com](https://hackyguru.com), [@hackyguru](https://x.com/hackyguru)): devrel lead at logos, formerly walletconnect and protocol labs. kept his whoop strap, dropped the subscription, and runs it fully local on his own fork.
 - [Jamon Holmgren](https://jamon.dev) ([jamon.dev](https://jamon.dev), [@jamonholmgren](https://x.com/jamonholmgren)): coding since 1992, cofounded infinite red, makes games on the side. wrote about how his agent workflow got faster and fun again.
@@ -52,9 +54,11 @@ Author: [Sohom Pal](https://sxohom.xyz/)
 - [Archie Sengupta](https://archiesengupta.com) ([archiesengupta.com](https://archiesengupta.com), [@archiexzzz](https://x.com/archiexzzz)): does pre- and post-training at sarvam and robotics and simulation research at midcentury. wants to work on hard problems in biology, and his family were doctors.
 - [maharshi](https://maharshi.bearblog.dev) ([maharshi.bearblog.dev](https://maharshi.bearblog.dev), [@maharshii](https://x.com/maharshii)): ml performance at fal. wrote "vibecoding gpu kernels", arguing kernels are easy to check so models can write them, and says inference work has moved up the abstraction ladder.
 - [vixhal](https://github.com/vixhal-baraiya) ([github.com](https://github.com/vixhal-baraiya), [@TheVixhal](https://x.com/TheVixhal)): physics and ml double major building a graph database at hydra db. wrote up how they turned qwen3-4b into a decision model on a macbook with mlx.
+- [Sanskar Pandey](https://scholar.google.com/citations?user=04PtMiIAAAAJ) ([scholar.google.com](https://scholar.google.com/citations?user=04PtMiIAAAAJ), [@sanskxr02](https://x.com/sanskxr02)): building fidelity dynamics, post-training and evals for robot learning, previously at sarvam. ✔ beacon co-author.
 
 ## research lists
 
+- [Andrew Ng](https://www.andrewng.org) ([andrewng.org](https://www.andrewng.org), [@AndrewYNg](https://x.com/AndrewYNg)): coursera cofounder, teaches at stanford. recently put out the ai engineering skills map, a guide to what to learn when you build with models.
 - [Ankit Jxa](https://hireankit.bearblog.dev) ([hireankit.bearblog.dev](https://hireankit.bearblog.dev), [@kingofknowwhere](https://x.com/kingofknowwhere)): eight years of math and llms, now contact center engineering and audio llms, building agiathome. keeps a list of research problems that are fun rather than sensible.
 - [Chris Barber](https://chrisbarber.co) ([chrisbarber.co](https://chrisbarber.co), [@chrisbarber](https://x.com/chrisbarber)): makes lists and surveys about data, compute and ai: the breakout list of startups, the frontier list, and an rl environment faq written with epoch ai.
 - [Sanyam Jain](https://www.sanyam-ai.in) ([sanyam-ai.in](https://www.sanyam-ai.in), [@Sanyam0605](https://x.com/Sanyam0605)): ml engineer and researcher at iit delhi who likes reading papers and writing code in the same week. wrote up 40 days and 20 companies of ai hiring in india.
@@ -65,8 +69,10 @@ Author: [Sohom Pal](https://sxohom.xyz/)
 
 - [Arpit Bhayani](https://arpitbhayani.me) ([arpitbhayani.me](https://arpitbhayani.me), [@arpit_bhayani](https://x.com/arpit_bhayani)): principal engineer at razorpay, made dicedb, building a lightweight ide called px0. curates tdd.cat, an engineering newspaper on databases, system design and applied ai.
 - [Daniel Lockyer](https://daniellockyer.com) ([daniellockyer.com](https://daniellockyer.com), [@DanielLockyer](https://x.com/DanielLockyer)): performance consultant who fixes high cpu, memory leaks, slow apis and cloud bills. once found and patched a scroll lag bug on x's web app. runs a 2:43 marathon.
+- [sunil pai](https://sunilpai.dev) ([sunilpai.dev](https://sunilpai.dev), [@threepointone](https://x.com/threepointone)): worked on react, cloudflare workers and partykit, now on durable infra. wrote "the senior engineer death spiral" and is giving a talk called "your ai agent is a distributed system".
 - [Devanshu Sharma](https://devanshusharma.com) ([devanshusharma.com](https://devanshusharma.com), [@DevanshuXi](https://x.com/DevanshuXi)): distributed systems and databases person who cares about correctness. now on infra at mastra, got into cal.com with a cold email.
 - [Can Duruk](https://justoffbyone.com) ([justoffbyone.com](https://justoffbyone.com), [@can](https://x.com/can)): leads product engineering at modal, former cto of felt, early at uber. writes off by one about engineering and managing engineers.
+- [shrinath](https://github.com/ShrinathNR) ([github.com](https://github.com/ShrinathNR), [@shrinathx](https://x.com/shrinathx)): working on light research, teaches and builds at solana turbine. ✔ built gauntlet with me.
 - [Karan Shingde](https://kmeanskaran.com) ([kmeanskaran.com](https://kmeanskaran.com), [@kmeanskaran](https://x.com/kmeanskaran)): mlops and inference engineer in pune who consults on llm infra and rag. writes long posts on what interviews actually ask.
 - [Akshay](https://join.dailydoseofds.com) ([join.dailydoseofds.com](https://join.dailydoseofds.com), [@akshay_pachaar](https://x.com/akshay_pachaar)): cofounder of daily dose of data science, formerly at lightning ai. writes plain-language explainers on llms, agents and rag, like an llm engineer's handbook for inference serving.
 
@@ -74,7 +80,9 @@ Author: [Sohom Pal](https://sxohom.xyz/)
 
 - [judah](https://joodaloop.com) ([joodaloop.com](https://joodaloop.com), [@joodalooped](https://x.com/joodalooped)): "ordinary genius" who makes very good websites through webcraft. joodaloop.com is his eternal notepad of riffs and evergreen notes.
 - [Ankit](https://ankitkr0.com) ([ankitkr0.com](https://ankitkr0.com), [@ankitkr0](https://x.com/ankitkr0)): makes his own products, like gone, an indiranagar café atlas and polymarket times, a newspaper run on prediction odds. has worked on gigabrain, buy me a coffee and spenny.
+- [andrew alimbuyuguen](https://alimbuyuguen.com) ([alimbuyuguen.com](https://alimbuyuguen.com), [@aalimbuyuguen](https://x.com/aalimbuyuguen)): vc and design partner at internet studio. his site is a design and illustration portfolio.
 - [srijan](https://srijan.is) ([srijan.is](https://srijan.is), [@srijancse](https://x.com/srijancse)): lives in bangalore, grew up all over india, learning catalan to talk to fellow barça fans. the site is just writing and listening.
+- [Henrik Karlsson](https://www.henrikkarlsson.xyz) ([henrikkarlsson.xyz](https://www.henrikkarlsson.xyz), [@phokarlsson](https://x.com/phokarlsson)): writes escaping flatland, essays on writing as thinking, relationships, self-cultivation and llms. pinned: treat people like they are too complex to fit in your head.
 - [siddharth](https://itsiddharth.design) ([itsiddharth.design](https://itsiddharth.design), [@itsiddharth_](https://x.com/itsiddharth_)): designer, engineer, artist in new york. did gold card work at robinhood and writes at timecapsule.co.in.
 - [sarv](https://kami.so) ([kami.so](https://kami.so), [@SarvasvKulpati](https://x.com/SarvasvKulpati)): "computers for human flourishing". building kami, a small colorful talking pocket computer that gives you an excuse to leave your phone behind.
 
@@ -84,6 +92,7 @@ Author: [Sohom Pal](https://sxohom.xyz/)
 - [Felipe](https://felipe.design) ([felipe.design](https://felipe.design), [@felipedotdesign](https://x.com/felipedotdesign)): designer at aave, previously x. seven years of 0 to 1 products and interfaces built for ai.
 - [Lenard Flören](https://lenardfloeren.com) ([lenardfloeren.com](https://lenardfloeren.com), [@LenardFloeren](https://x.com/LenardFloeren)): art director and product designer in berlin who built himself a workout and yoga app with no coding background.
 - [M.A. Baytaş](https://baytas.net) ([baytas.net](https://baytas.net), [@doctorbaytas](https://x.com/doctorbaytas)): designer and engineer with a phd in interaction design. creative director at moment, previously design engineer at attio, hosts design discipline.
+- [Simon Sarris](https://simonsarris.com) ([simonsarris.com](https://simonsarris.com), [@simonsarris](https://x.com/simonsarris)): essays, projects and recipes from new hampshire. "the map is mostly water." latest: some notes on pleasure.
 
 ## long essays
 
