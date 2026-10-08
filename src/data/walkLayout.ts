@@ -81,7 +81,7 @@ export const walkTrailLabels: Record<string, string> = {
   ankit: "ankit",
   srijan: "srijan",
   siddharth: "siddharth",
-  "andrew-alimbuyuguen": "alimbuyuguen",
+  "andrew-alimbuyuguen": "andrew a.",
   felipe: "felipe",
   "lenard-floeren": "lenard",
   "ma-baytas": "m.a. baytaş",
@@ -424,19 +424,25 @@ export type MobileTrailSection = {
   continueTo?: { label: string; d: string; labelAt: { x: number; y: number } };
 };
 
+/** Approx mobile name width (12.5px) for clip-safe placement. */
+function estimateMobileLabelW(id: string): number {
+  const text = walkTrailLabels[id] ?? id;
+  return Math.max(28, text.length * 6.4);
+}
+
 export function buildMobileWalkLayout(): {
   view: { w: number; h: number };
   trails: MobileTrailSection[];
   trailhead: { x: number; y: number };
   compass: { x: number; y: number };
   scale: { x: number; y: number };
-  /** soft river ribbon down the page (decorative) */
-  riverD: string;
 } {
   const W = WALK_MOBILE_VIEW.w;
-  const padX = 36;
+  const EDGE = 24;
+  const padX = 52;
   const usable = W - padX * 2;
-  let y = 56;
+  // room above first trail for trailhead pin (clear of eval nerds pill)
+  let y = 72;
   const trails: MobileTrailSection[] = [];
   const built: {
     meta: (typeof trailMeta)[number];
@@ -452,23 +458,27 @@ export function buildMobileWalkLayout(): {
     const n = meta.waypointIds.length;
     const bandH = Math.max(150, 56 + n * 34);
     const bandY = y;
-    const startY = y + 44;
+    const startY = y + 48;
     const endY = y + bandH - 28;
-    // alternate overall lean so the hike snakes left/right like a ridge walk
+    // alternate lean, but keep markers inset so left labels never clip
     const lean = ti % 2 === 0 ? 1 : -1;
     const waypoints: WalkWaypoint[] = meta.waypointIds.map((id, i) => {
       const t = n === 1 ? 0.5 : i / (n - 1);
-      const zigX = Math.sin(t * Math.PI * 1.7) * 42 * lean;
-      const mid = padX + usable * (0.42 + lean * 0.08);
-      const x = mid + (t - 0.5) * (usable * 0.72) + zigX;
-      const wy = startY + t * (endY - startY);
-      const label: WalkLabelSide = i % 2 === 0 ? "left" : "right";
-      return {
-        id,
-        x: Math.min(W - 40, Math.max(40, x)),
-        y: wy,
-        label,
-      };
+      const zigX = Math.sin(t * Math.PI * 1.7) * 28 * lean;
+      const mid = padX + usable * (0.5 + lean * 0.04);
+      let x = mid + (t - 0.5) * (usable * 0.55) + zigX;
+      x = Math.min(W - 48, Math.max(padX, x));
+      const labelW = estimateMobileLabelW(id);
+      // prefer alternating sides, but flip when a left label would clip
+      let label: WalkLabelSide = i % 2 === 0 ? "left" : "right";
+      if (label === "left" && x - 10 - labelW < EDGE) label = "right";
+      if (label === "right" && x + 10 + labelW > W - EDGE) label = "left";
+      // if still unsafe on left, shove marker right
+      if (label === "left" && x - 10 - labelW < EDGE) {
+        x = EDGE + 10 + labelW + 2;
+        label = "right";
+      }
+      return { id, x, y: startY + t * (endY - startY), label };
     });
 
     const pts: Record<string, WalkWaypoint> = {};
@@ -477,14 +487,14 @@ export function buildMobileWalkLayout(): {
       waypoints.map((w) => w.id),
       pts,
     );
-    // pill in a clearing near the first third of the band
+    // pill to the right of the path start, clear of trailhead on first band
     const pill = {
-      x: Math.min(W - 90, Math.max(90, waypoints[0].x + lean * 28)),
-      y: bandY + 22,
+      x: Math.min(W - 88, Math.max(110, waypoints[0].x + 56)),
+      y: bandY + (ti === 0 ? 34 : 22),
     };
 
     built.push({ meta, waypoints, bandY, bandH, pill, d });
-    y += bandH + 28; // gap for connector footpath
+    y += bandH + 28;
   }
 
   for (let ti = 0; ti < built.length; ti++) {
@@ -500,7 +510,10 @@ export function buildMobileWalkLayout(): {
       continueTo = {
         label: `continue to ${next.meta.name}`,
         d,
-        labelAt: { x: mx, y: my - 6 },
+        labelAt: {
+          x: Math.min(W - 80, Math.max(80, mx)),
+          y: my - 6,
+        },
       };
     }
     trails.push({
@@ -519,15 +532,17 @@ export function buildMobileWalkLayout(): {
 
   const h = y + 72;
   const first = trails[0]?.waypoints[0];
+  // trailhead above/left of first marker, clear of eval nerds pill
+  const trailhead = {
+    x: first ? Math.max(EDGE + 8, first.x - 36) : padX,
+    y: first ? first.y - 36 : 28,
+  };
+
   return {
     view: { w: W, h },
     trails,
-    trailhead: {
-      x: first ? first.x - 18 : padX + 8,
-      y: first ? first.y - 28 : 28,
-    },
+    trailhead,
     compass: { x: W - 48, y: h - 56 },
     scale: { x: W / 2 - 45, y: h - 28 },
-    riverD: `M ${W * 0.72} 40 C ${W * 0.78} ${h * 0.2}, ${W * 0.55} ${h * 0.45}, ${W * 0.68} ${h * 0.7} S ${W * 0.82} ${h - 40}, ${W * 0.75} ${h - 20}`,
   };
 }

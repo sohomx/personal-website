@@ -525,27 +525,6 @@ export function WalkMap({ lines }: Props) {
               role="img"
               aria-label="portrait trail map of people by topic"
             >
-              <path
-                d={mobile.riverD}
-                fill="none"
-                stroke="#9eb8c4"
-                strokeWidth={14}
-                strokeLinecap="round"
-                opacity={0.28}
-                className="walk-river"
-                aria-hidden="true"
-              />
-              <path
-                d={mobile.riverD}
-                fill="none"
-                stroke="#b7ced8"
-                strokeWidth={7}
-                strokeLinecap="round"
-                opacity={0.45}
-                className="walk-river"
-                aria-hidden="true"
-              />
-
               {mobile.trails.map((trail) =>
                 trail.continueTo ? (
                   <g key={`cont-${trail.id}`} className="walk-continue">
