@@ -1,9 +1,12 @@
 /**
- * Topographic walk overlay geometry in the same viewBox as the basemap (1280×720).
- * Trails avoid the river corridor; a few bridges host interchanges.
+ * Topographic walk overlay — hiking-map geometry over the 1280×720 basemap.
+ * Soft organic trails, short trail-marker names, left inset so labels never clip.
  */
 
 export const WALK_VIEW = { w: 1280, h: 720 } as const;
+
+/** Portrait mobile column (~390 CSS px wide, tall scroll). */
+export const WALK_MOBILE_VIEW = { w: 390, h: 2100 } as const;
 
 export type WalkLabelSide = "left" | "right" | "above" | "below";
 
@@ -17,127 +20,224 @@ export type WalkWaypoint = {
 export type WalkTrailDef = {
   id: string;
   name: string;
-  /** muted topo colour */
+  /** muted earth trail colour */
   color: string;
   /** SVG path in viewBox coords */
   d: string;
-  /** pill anchor along the trail */
+  /** group label in a clearing */
   pill: { x: number; y: number };
   waypointIds: string[];
 };
 
-/** Unique waypoint positions (interchanges share one point). */
-export const walkWaypoints: Record<string, WalkWaypoint> = {
-  // eval ∩ shipping
-  "jason-liu": { id: "jason-liu", x: 420, y: 250, label: "left" },
-  "nirant-kasliwal": { id: "nirant-kasliwal", x: 360, y: 200, label: "below" },
-  "minh-nhat-nguyen": { id: "minh-nhat-nguyen", x: 480, y: 155, label: "above" },
-  // eval ∩ research (bridge near top)
-  "andrew-ng": { id: "andrew-ng", x: 620, y: 140, label: "above" },
-  "prathosh-ap": { id: "prathosh-ap", x: 520, y: 300, label: "left" },
-
-  // research (right of upper river)
-  "ankit-jxa": { id: "ankit-jxa", x: 740, y: 120, label: "right" },
-  "chris-barber": { id: "chris-barber", x: 860, y: 105, label: "above" },
-  "sanyam-jain": { id: "sanyam-jain", x: 960, y: 145, label: "below" },
-  suhail: { id: "suhail", x: 1080, y: 180, label: "right" },
-  nick: { id: "nick", x: 1140, y: 250, label: "right" },
-
-  // shipping
-  teknium: { id: "teknium", x: 230, y: 300, label: "below" },
-  pili: { id: "pili", x: 290, y: 235, label: "right" },
-  phil: { id: "phil", x: 340, y: 310, label: "left" },
-  // shipping ∩ indie
-  sphinx: { id: "sphinx", x: 400, y: 380, label: "left" },
-  "simon-tokumin": { id: "simon-tokumin", x: 500, y: 360, label: "right" },
-  ghuubear: { id: "ghuubear", x: 560, y: 420, label: "right" },
-
-  // coding (west ridge)
-  theo: { id: "theo", x: 170, y: 390, label: "right" },
-  dax: { id: "dax", x: 200, y: 420, label: "left" },
-  "charlie-holtz": { id: "charlie-holtz", x: 260, y: 460, label: "left" },
-  "thorsten-ball": { id: "thorsten-ball", x: 320, y: 500, label: "left" },
-  // coding ∩ systems
-  "sunil-pai": { id: "sunil-pai", x: 400, y: 520, label: "below" },
-  "emanuele-di-pietro": {
-    id: "emanuele-di-pietro",
-    x: 470,
-    y: 580,
-    label: "left",
-  },
-
-  // gpu (lower west valley)
-  tokenbender: { id: "tokenbender", x: 140, y: 500, label: "left" },
-  "elie-bakouch": { id: "elie-bakouch", x: 180, y: 560, label: "left" },
-  "archie-sengupta": { id: "archie-sengupta", x: 240, y: 600, label: "left" },
-  maharshi: { id: "maharshi", x: 320, y: 620, label: "below" },
-  vixhal: { id: "vixhal", x: 420, y: 640, label: "below" },
-  // gpu ∩ build (near lake approach)
-  "sanskar-pandey": { id: "sanskar-pandey", x: 740, y: 630, label: "below" },
-
-  // systems
-  "arpit-bhayani": { id: "arpit-bhayani", x: 200, y: 640, label: "left" },
-  "daniel-lockyer": { id: "daniel-lockyer", x: 300, y: 660, label: "below" },
-  "devanshu-sharma": { id: "devanshu-sharma", x: 540, y: 600, label: "above" },
-  "can-duruk": { id: "can-duruk", x: 700, y: 520, label: "above" },
-  // systems ∩ build
-  shrinath: { id: "shrinath", x: 820, y: 530, label: "right" },
-  "karan-shingde": { id: "karan-shingde", x: 900, y: 510, label: "right" },
-  akshay: { id: "akshay", x: 980, y: 470, label: "right" },
-
-  // indie (south-west loop then to sphinx then SE)
-  "pranav-hari": { id: "pranav-hari", x: 100, y: 580, label: "left" },
-  "tanmay-sonawane": { id: "tanmay-sonawane", x: 80, y: 660, label: "left" },
-  kyzo: { id: "kyzo", x: 160, y: 700, label: "below" },
-  "virgile-rietsch": { id: "virgile-rietsch", x: 280, y: 700, label: "below" },
-  mageframe: { id: "mageframe", x: 380, y: 680, label: "below" },
-  jitesh: { id: "jitesh", x: 360, y: 560, label: "left" },
-  levelsio: { id: "levelsio", x: 480, y: 440, label: "right" },
-  guru: { id: "guru", x: 560, y: 500, label: "right" },
-  "jamon-holmgren": { id: "jamon-holmgren", x: 580, y: 650, label: "below" },
-  dhh: { id: "dhh", x: 720, y: 470, label: "above" },
-
-  // personal (east ridge)
-  judah: { id: "judah", x: 820, y: 240, label: "below" },
-  ankit: { id: "ankit", x: 910, y: 230, label: "right" },
-  // design ∩ personal
-  "andrew-alimbuyuguen": {
-    id: "andrew-alimbuyuguen",
-    x: 980,
-    y: 230,
-    label: "right",
-  },
-  srijan: { id: "srijan", x: 1020, y: 300, label: "right" },
-  // essays ∩ personal
-  "henrik-karlsson": { id: "henrik-karlsson", x: 1040, y: 380, label: "right" },
-  siddharth: { id: "siddharth", x: 1100, y: 440, label: "right" },
-  sarv: { id: "sarv", x: 1140, y: 520, label: "right" },
-
-  // design
-  felipe: { id: "felipe", x: 1070, y: 150, label: "right" },
-  "lenard-floeren": { id: "lenard-floeren", x: 1140, y: 200, label: "right" },
-  "ma-baytas": { id: "ma-baytas", x: 1180, y: 280, label: "right" },
-  // essays ∩ design
-  "simon-sarris": { id: "simon-sarris", x: 1080, y: 340, label: "left" },
-
-  // essays (east spine toward lake)
-  "paras-chopra": { id: "paras-chopra", x: 1000, y: 430, label: "right" },
-  "zara-zhang": { id: "zara-zhang", x: 960, y: 460, label: "left" },
-  "chris-lakin": { id: "chris-lakin", x: 920, y: 560, label: "right" },
-  christian: { id: "christian", x: 860, y: 620, label: "below" },
+/**
+ * Short trail-marker text from real names/handles only — never invented nicknames.
+ * Full name stays on the hover card. Disambiguate only with parts of the real name.
+ */
+export const walkTrailLabels: Record<string, string> = {
+  "jason-liu": "jason liu",
+  "nirant-kasliwal": "nirant",
+  teknium: "teknium",
+  "minh-nhat-nguyen": "minh",
+  pili: "pili",
+  sphinx: "sphinx",
+  "prathosh-ap": "prathosh",
+  ghuubear: "@ghuubear",
+  phil: "phil",
+  "simon-tokumin": "simon",
+  "andrew-ng": "andrew ng",
+  theo: "theo",
+  dax: "dax",
+  "charlie-holtz": "charlie",
+  "thorsten-ball": "thorsten",
+  "sunil-pai": "sunil",
+  "emanuele-di-pietro": "emanuele",
+  "pranav-hari": "pranav",
+  "tanmay-sonawane": "tanmay",
+  kyzo: "kyzo",
+  "virgile-rietsch": "virgile",
+  mageframe: "mageframe",
+  jitesh: "jitesh",
+  "jamon-holmgren": "jamon",
+  dhh: "dhh",
+  levelsio: "@levelsio",
+  guru: "guru",
+  tokenbender: "tokenbender",
+  "elie-bakouch": "elie",
+  "archie-sengupta": "archie",
+  "ankit-jxa": "ankit jxa",
+  "chris-barber": "chris barber",
+  vixhal: "vixhal",
+  "sanyam-jain": "sanyam",
+  suhail: "suhail",
+  nick: "nick",
+  maharshi: "maharshi",
+  "arpit-bhayani": "arpit",
+  "daniel-lockyer": "daniel",
+  "devanshu-sharma": "devanshu",
+  "can-duruk": "can",
+  "karan-shingde": "karan",
+  akshay: "akshay",
+  judah: "judah",
+  ankit: "ankit",
+  srijan: "srijan",
+  siddharth: "siddharth",
+  "andrew-alimbuyuguen": "andrew alimbuyuguen",
+  felipe: "felipe",
+  "lenard-floeren": "lenard",
+  "ma-baytas": "m.a. baytaş",
+  sarv: "sarv",
+  "henrik-karlsson": "henrik",
+  "paras-chopra": "paras",
+  "zara-zhang": "zara",
+  "simon-sarris": "simon sarris",
+  "chris-lakin": "chris lakin",
+  christian: "christian",
+  "sanskar-pandey": "sanskar",
+  shrinath: "shrinath",
 };
 
+/** Soft organic hiking path (Catmull-Rom → cubic) with light contour wobble. */
+function organicPath(ids: string[], pts: Record<string, WalkWaypoint>): string {
+  const points = ids.map((id) => {
+    const p = pts[id];
+    if (!p) throw new Error(`missing walk waypoint ${id}`);
+    return { x: p.x, y: p.y };
+  });
+  if (points.length === 0) return "";
+  if (points.length === 1) return `M ${points[0].x} ${points[0].y}`;
+  if (points.length === 2) {
+    const a = points[0];
+    const b = points[1];
+    const mx = (a.x + b.x) / 2;
+    const my = (a.y + b.y) / 2;
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const len = Math.hypot(dx, dy) || 1;
+    const ox = (-dy / len) * Math.min(28, len * 0.22);
+    const oy = (dx / len) * Math.min(28, len * 0.22);
+    return `M ${a.x} ${a.y} Q ${mx + ox} ${my + oy} ${b.x} ${b.y}`;
+  }
+
+  const extended = [points[0], ...points, points[points.length - 1]];
+  let d = `M ${points[0].x} ${points[0].y}`;
+  for (let i = 1; i < extended.length - 2; i++) {
+    const p0 = extended[i - 1];
+    const p1 = extended[i];
+    const p2 = extended[i + 1];
+    const p3 = extended[i + 2];
+    const c1x = p1.x + (p2.x - p0.x) / 6;
+    const c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6;
+    const c2y = p2.y - (p3.y - p1.y) / 6;
+    // slight contour bias so segments don't read as transit diagonals
+    const bias = ((i % 3) - 1) * 4;
+    d += ` C ${(c1x + bias * 0.3).toFixed(1)} ${(c1y - bias * 0.5).toFixed(1)}, ${(c2x - bias * 0.2).toFixed(1)} ${(c2y + bias * 0.4).toFixed(1)}, ${p2.x} ${p2.y}`;
+  }
+  return d;
+}
+
 /**
- * Muted topo trail colours (rust, olive, slate blue, ochre, plum, moss,
- * teal-grey, brick, sand, dusty pink, charcoal).
+ * Desktop waypoints — left margin keeps short markers inside 1024–1440 crops.
+ * SW cluster fans into empty paper; trails snake, not stack.
  */
-export const walkTrailDefs: WalkTrailDef[] = [
+export const walkWaypoints: Record<string, WalkWaypoint> = {
+  // eval ∩ shipping
+  "jason-liu": { id: "jason-liu", x: 435, y: 250, label: "left" },
+  "nirant-kasliwal": { id: "nirant-kasliwal", x: 375, y: 195, label: "below" },
+  "minh-nhat-nguyen": { id: "minh-nhat-nguyen", x: 500, y: 148, label: "above" },
+  // eval ∩ research
+  "andrew-ng": { id: "andrew-ng", x: 625, y: 135, label: "above" },
+  "prathosh-ap": { id: "prathosh-ap", x: 535, y: 300, label: "left" },
+
+  // research
+  "ankit-jxa": { id: "ankit-jxa", x: 745, y: 115, label: "right" },
+  "chris-barber": { id: "chris-barber", x: 865, y: 100, label: "above" },
+  "sanyam-jain": { id: "sanyam-jain", x: 965, y: 142, label: "below" },
+  suhail: { id: "suhail", x: 1080, y: 178, label: "right" },
+  nick: { id: "nick", x: 1145, y: 248, label: "right" },
+
+  // shipping
+  teknium: { id: "teknium", x: 255, y: 290, label: "below" },
+  pili: { id: "pili", x: 315, y: 225, label: "right" },
+  phil: { id: "phil", x: 360, y: 310, label: "left" },
+  sphinx: { id: "sphinx", x: 425, y: 370, label: "left" },
+  "simon-tokumin": { id: "simon-tokumin", x: 515, y: 350, label: "right" },
+  ghuubear: { id: "ghuubear", x: 575, y: 410, label: "right" },
+
+  // coding ridge
+  theo: { id: "theo", x: 205, y: 365, label: "right" },
+  dax: { id: "dax", x: 240, y: 405, label: "left" },
+  "charlie-holtz": { id: "charlie-holtz", x: 295, y: 440, label: "left" },
+  "thorsten-ball": { id: "thorsten-ball", x: 355, y: 470, label: "above" },
+  "sunil-pai": { id: "sunil-pai", x: 460, y: 505, label: "above" },
+  "emanuele-di-pietro": {
+    id: "emanuele-di-pietro",
+    x: 555,
+    y: 555,
+    label: "right",
+  },
+
+  // gpu valley
+  tokenbender: { id: "tokenbender", x: 185, y: 500, label: "right" },
+  "elie-bakouch": { id: "elie-bakouch", x: 250, y: 548, label: "right" },
+  "archie-sengupta": { id: "archie-sengupta", x: 335, y: 585, label: "right" },
+  maharshi: { id: "maharshi", x: 430, y: 608, label: "below" },
+  vixhal: { id: "vixhal", x: 535, y: 628, label: "below" },
+  "sanskar-pandey": { id: "sanskar-pandey", x: 745, y: 642, label: "below" },
+
+  // systems
+  "arpit-bhayani": { id: "arpit-bhayani", x: 168, y: 630, label: "right" },
+  "daniel-lockyer": { id: "daniel-lockyer", x: 280, y: 648, label: "above" },
+  "devanshu-sharma": { id: "devanshu-sharma", x: 580, y: 592, label: "above" },
+  "can-duruk": { id: "can-duruk", x: 705, y: 512, label: "above" },
+  shrinath: { id: "shrinath", x: 825, y: 522, label: "right" },
+  "karan-shingde": { id: "karan-shingde", x: 905, y: 500, label: "right" },
+  akshay: { id: "akshay", x: 985, y: 460, label: "right" },
+
+  // indie bottom fan into empty paper
+  "pranav-hari": { id: "pranav-hari", x: 160, y: 570, label: "above" },
+  "tanmay-sonawane": { id: "tanmay-sonawane", x: 175, y: 688, label: "right" },
+  kyzo: { id: "kyzo", x: 310, y: 692, label: "above" },
+  "virgile-rietsch": { id: "virgile-rietsch", x: 455, y: 690, label: "above" },
+  mageframe: { id: "mageframe", x: 585, y: 668, label: "below" },
+  jitesh: { id: "jitesh", x: 385, y: 535, label: "left" },
+  levelsio: { id: "levelsio", x: 505, y: 425, label: "right" },
+  guru: { id: "guru", x: 585, y: 485, label: "right" },
+  "jamon-holmgren": { id: "jamon-holmgren", x: 645, y: 648, label: "below" },
+  dhh: { id: "dhh", x: 725, y: 460, label: "above" },
+
+  // personal / design / essays east
+  judah: { id: "judah", x: 820, y: 238, label: "below" },
+  ankit: { id: "ankit", x: 910, y: 228, label: "right" },
+  "andrew-alimbuyuguen": {
+    id: "andrew-alimbuyuguen",
+    x: 990,
+    y: 225,
+    label: "right",
+  },
+  srijan: { id: "srijan", x: 1025, y: 298, label: "right" },
+  "henrik-karlsson": { id: "henrik-karlsson", x: 1045, y: 378, label: "right" },
+  siddharth: { id: "siddharth", x: 1105, y: 438, label: "right" },
+  sarv: { id: "sarv", x: 1145, y: 518, label: "right" },
+
+  felipe: { id: "felipe", x: 1075, y: 148, label: "right" },
+  "lenard-floeren": { id: "lenard-floeren", x: 1145, y: 198, label: "right" },
+  "ma-baytas": { id: "ma-baytas", x: 1185, y: 278, label: "right" },
+  "simon-sarris": { id: "simon-sarris", x: 1085, y: 338, label: "left" },
+
+  "paras-chopra": { id: "paras-chopra", x: 1005, y: 428, label: "right" },
+  "zara-zhang": { id: "zara-zhang", x: 960, y: 458, label: "left" },
+  "chris-lakin": { id: "chris-lakin", x: 920, y: 558, label: "right" },
+  christian: { id: "christian", x: 855, y: 618, label: "below" },
+};
+
+/** Muted earth trail colours — hiking map, not transit neon. */
+const trailMeta: Omit<WalkTrailDef, "d">[] = [
   {
     id: "eval-nerds",
     name: "eval nerds",
-    color: "#8A6A78",
-    d: "M 360 200 C 381.0 217.5, 378.0 265.8, 420 250 C 462.0 234.3, 410.0 193.5, 480 155 C 550.0 116.5, 606.0 89.3, 620 140 C 634.0 190.8, 555.0 244.0, 520 300",
-    pill: { x: 300, y: 130 },
+    color: "#7A6570",
+    pill: { x: 295, y: 118 },
     waypointIds: [
       "nirant-kasliwal",
       "jason-liu",
@@ -149,9 +249,8 @@ export const walkTrailDefs: WalkTrailDef[] = [
   {
     id: "shipping-agents",
     name: "people shipping agents",
-    color: "#5F7A76",
-    d: "M 230 300 C 251.0 277.3, 223.5 252.5, 290 235 C 356.5 217.5, 402.5 223.8, 420 250 C 437.5 276.3, 347.0 264.5, 340 310 C 333.0 355.5, 344.0 362.5, 400 380 C 456.0 397.5, 444.0 346.0, 500 360 C 556.0 374.0, 539.0 399.0, 560 420",
-    pill: { x: 155, y: 205 },
+    color: "#5C706C",
+    pill: { x: 170, y: 188 },
     waypointIds: [
       "teknium",
       "pili",
@@ -165,9 +264,8 @@ export const walkTrailDefs: WalkTrailDef[] = [
   {
     id: "coding-agent-gang",
     name: "coding agent gang",
-    color: "#5A6E8A",
-    d: "M 170 390 C 180.5 400.5, 168.5 395.5, 200 420 C 231.5 444.5, 218.0 432.0, 260 460 C 302.0 488.0, 271.0 479.0, 320 500 C 369.0 521.0, 347.5 492.0, 400 520 C 452.5 548.0, 445.5 559.0, 470 580",
-    pill: { x: 105, y: 325 },
+    color: "#5A6A7C",
+    pill: { x: 275, y: 300 },
     waypointIds: [
       "theo",
       "dax",
@@ -180,9 +278,8 @@ export const walkTrailDefs: WalkTrailDef[] = [
   {
     id: "indie-shippers",
     name: "indie shippers",
-    color: "#A65D3F",
-    d: "M 100 580 C 93.0 608.0, 59.0 618.0, 80 660 C 101.0 702.0, 90.0 686.0, 160 700 C 230.0 714.0, 203.0 707.0, 280 700 C 357.0 693.0, 352.0 729.0, 380 680 C 408.0 631.0, 353.0 665.0, 360 560 C 367.0 455.0, 358.0 422.0, 400 380 C 442.0 338.0, 424.0 398.0, 480 440 C 536.0 482.0, 525.0 426.5, 560 500 C 595.0 573.5, 524.0 660.5, 580 650 C 636.0 639.5, 671.0 533.0, 720 470",
-    pill: { x: 70, y: 545 },
+    color: "#8F5E45",
+    pill: { x: 385, y: 655 },
     waypointIds: [
       "pranav-hari",
       "tanmay-sonawane",
@@ -200,9 +297,9 @@ export const walkTrailDefs: WalkTrailDef[] = [
   {
     id: "gpu-line",
     name: "gpu poor and gpu rich",
-    color: "#6A7D55",
-    d: "M 140 500 C 154.0 521.0, 145.0 525.0, 180 560 C 215.0 595.0, 191.0 579.0, 240 600 C 289.0 621.0, 257.0 606.0, 320 620 C 383.0 634.0, 273.0 636.5, 420 640 C 567.0 643.5, 628.0 633.5, 740 630",
-    pill: { x: 100, y: 470 },
+    color: "#667854",
+    // open clearing above mid-valley (between archie and maharshi)
+    pill: { x: 500, y: 545 },
     waypointIds: [
       "tokenbender",
       "elie-bakouch",
@@ -215,9 +312,8 @@ export const walkTrailDefs: WalkTrailDef[] = [
   {
     id: "research-lists",
     name: "research lists",
-    color: "#B08D3E",
-    d: "M 620 140 C 662.0 133.0, 656.0 132.3, 740 120 C 824.0 107.8, 783.0 96.3, 860 105 C 937.0 113.8, 883.0 118.8, 960 145 C 1037.0 171.3, 1017.0 143.3, 1080 180 C 1143.0 216.8, 1119.0 225.5, 1140 250",
-    pill: { x: 680, y: 85 },
+    color: "#9A7E3C",
+    pill: { x: 685, y: 82 },
     waypointIds: [
       "andrew-ng",
       "ankit-jxa",
@@ -230,9 +326,8 @@ export const walkTrailDefs: WalkTrailDef[] = [
   {
     id: "systems-people",
     name: "systems people",
-    color: "#9A5548",
-    d: "M 200 640 C 235.0 647.0, 230.0 702.0, 300 660 C 370.0 618.0, 316.0 541.0, 400 520 C 484.0 499.0, 435.0 600.0, 540 600 C 645.0 600.0, 602.0 544.5, 700 520 C 798.0 495.5, 750.0 533.5, 820 530 C 890.0 526.5, 844.0 531.0, 900 510 C 956.0 489.0, 952.0 484.0, 980 470",
-    pill: { x: 160, y: 610 },
+    color: "#8A5348",
+    pill: { x: 655, y: 538 },
     waypointIds: [
       "arpit-bhayani",
       "daniel-lockyer",
@@ -247,9 +342,8 @@ export const walkTrailDefs: WalkTrailDef[] = [
   {
     id: "personal-sites",
     name: "personal site enjoyers",
-    color: "#B07A84",
-    d: "M 820 240 C 851.5 236.5, 854.0 233.5, 910 230 C 966.0 226.5, 941.5 205.5, 980 230 C 1018.5 254.5, 999.0 247.5, 1020 300 C 1041.0 352.5, 1012.0 331.0, 1040 380 C 1068.0 429.0, 1065.0 391.0, 1100 440 C 1135.0 489.0, 1126.0 492.0, 1140 520",
-    pill: { x: 745, y: 185 },
+    color: "#9A6E76",
+    pill: { x: 748, y: 180 },
     waypointIds: [
       "judah",
       "ankit",
@@ -263,9 +357,8 @@ export const walkTrailDefs: WalkTrailDef[] = [
   {
     id: "design-nerds",
     name: "design nerds",
-    color: "#A99570",
-    d: "M 980 230 C 1011.5 202.0, 1014.0 160.5, 1070 150 C 1126.0 139.5, 1101.5 154.5, 1140 200 C 1178.5 245.5, 1201.0 231.0, 1180 280 C 1159.0 329.0, 1115.0 319.0, 1080 340",
-    pill: { x: 1010, y: 110 },
+    color: "#96866A",
+    pill: { x: 1015, y: 105 },
     waypointIds: [
       "andrew-alimbuyuguen",
       "felipe",
@@ -278,8 +371,7 @@ export const walkTrailDefs: WalkTrailDef[] = [
     id: "long-essays",
     name: "long essays",
     color: "#555550",
-    d: "M 1080 340 C 1066.0 354.0, 1068.0 348.5, 1040 380 C 1012.0 411.5, 1028.0 402.0, 1000 430 C 972.0 458.0, 988.0 414.5, 960 460 C 932.0 505.5, 955.0 504.0, 920 560 C 885.0 616.0, 881.0 599.0, 860 620",
-    pill: { x: 900, y: 370 },
+    pill: { x: 895, y: 365 },
     waypointIds: [
       "simon-sarris",
       "henrik-karlsson",
@@ -292,14 +384,18 @@ export const walkTrailDefs: WalkTrailDef[] = [
   {
     id: "build-with",
     name: "people i build with",
-    color: "#7A7A48",
-    d: "M 740 630 C 768.0 595.0, 792.0 565.0, 820 530",
-    pill: { x: 710, y: 630 },
+    color: "#6E6E48",
+    pill: { x: 780, y: 530 },
     waypointIds: ["sanskar-pandey", "shrinath"],
   },
 ];
 
-export const TRAILHEAD = { x: 70, y: 680 } as const;
+export const walkTrailDefs: WalkTrailDef[] = trailMeta.map((t) => ({
+  ...t,
+  d: organicPath(t.waypointIds, walkWaypoints),
+}));
+
+export const TRAILHEAD = { x: 115, y: 675 } as const;
 export const COMPASS = { x: 1180, y: 640 } as const;
 export const SCALE = { x: 1080, y: 690 } as const;
 
@@ -308,3 +404,76 @@ export const BASEMAP = {
   src2x: "/internet/topo-basemap@2x.webp",
   fallback: "/internet/topo-basemap.jpg",
 } as const;
+
+/* -------------------------------------------------------------------------- */
+/* Mobile portrait reflow — stacked trails, vertical scroll                   */
+/* -------------------------------------------------------------------------- */
+
+export type MobileTrailSection = {
+  id: string;
+  name: string;
+  color: string;
+  pill: { x: number; y: number };
+  d: string;
+  waypoints: WalkWaypoint[];
+};
+
+export function buildMobileWalkLayout(): {
+  view: { w: number; h: number };
+  trails: MobileTrailSection[];
+  trailhead: { x: number; y: number };
+} {
+  const W = WALK_MOBILE_VIEW.w;
+  const padX = 28;
+  const usable = W - padX * 2;
+  let y = 48;
+  const trails: MobileTrailSection[] = [];
+
+  for (const meta of trailMeta) {
+    const n = meta.waypointIds.length;
+    const bandH = Math.max(120, 42 + n * 30);
+    const pillY = y + 16;
+    const startY = y + 40;
+    const endY = y + bandH - 20;
+    const waypoints: WalkWaypoint[] = meta.waypointIds.map((id, i) => {
+      const t = n === 1 ? 0.5 : i / (n - 1);
+      // meander like a footpath, not a transit diagonal
+      const zigX = Math.sin(t * Math.PI * 2.1) * 36;
+      const zigY = Math.cos(t * Math.PI * 1.6) * 10;
+      const x = padX + 16 + t * (usable - 32) + zigX;
+      const wy = startY + t * (endY - startY) + zigY;
+      const label: WalkLabelSide =
+        i === 0 ? "right" : i === n - 1 ? "left" : i % 2 === 0 ? "above" : "below";
+      return {
+        id,
+        x: Math.min(W - 32, Math.max(32, x)),
+        y: wy,
+        label,
+      };
+    });
+
+    const pts: Record<string, WalkWaypoint> = {};
+    for (const wp of waypoints) pts[wp.id] = wp;
+
+    trails.push({
+      id: meta.id,
+      name: meta.name,
+      color: meta.color,
+      pill: { x: W / 2, y: pillY },
+      d: organicPath(
+        waypoints.map((w) => w.id),
+        pts,
+      ),
+      waypoints,
+    });
+
+    y += bandH + 12;
+  }
+
+  const h = Math.max(WALK_MOBILE_VIEW.h, y + 60);
+  return {
+    view: { w: W, h },
+    trails,
+    trailhead: { x: padX + 10, y: h - 36 },
+  };
+}

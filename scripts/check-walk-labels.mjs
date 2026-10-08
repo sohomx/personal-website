@@ -137,6 +137,44 @@ const report = await page.evaluate(() => {
       }
     }
   }
+  // pills vs every waypoint dot (and already vs labels above)
+  for (const pill of pills) {
+    for (const dot of dots) {
+      if (
+        !(
+          pill.x + pill.w + 1 <= dot.x ||
+          dot.x + dot.w + 1 <= pill.x ||
+          pill.y + pill.h + 1 <= dot.y ||
+          dot.y + dot.h + 1 <= pill.y
+        )
+      ) {
+        problems.push(`pill∩dot ${pill.id} ↔ ${dot.id}`);
+      }
+    }
+  }
+  // clip check: labels/pills must stay inside viewBox with margin
+  const vb = svg.viewBox.baseVal;
+  const margin = 4;
+  for (const lab of labelRoot) {
+    if (
+      lab.x < margin ||
+      lab.y < margin ||
+      lab.x + lab.w > vb.width - margin ||
+      lab.y + lab.h > vb.height - margin
+    ) {
+      problems.push(`clip label ${lab.id}`);
+    }
+  }
+  for (const pill of pills) {
+    if (
+      pill.x < margin ||
+      pill.y < margin ||
+      pill.x + pill.w > vb.width - margin ||
+      pill.y + pill.h > vb.height - margin
+    ) {
+      problems.push(`clip pill ${pill.id}`);
+    }
+  }
   return { count: labelRoot.length, problems, labels: labelRoot };
 });
 

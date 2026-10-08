@@ -11,10 +11,11 @@ export type StationPos = {
 };
 
 export const LABEL = {
-  fontSize: 12.5,
-  charW: 7.4,
-  dyAbove: -20,
-  dyBelow: 22,
+  /** ~10–11px on-screen at metro-shell width (~1152) over 2240 viewBox */
+  fontSize: 18,
+  charW: 10.2,
+  dyAbove: -22,
+  dyBelow: 24,
   pad: 3,
 } as const;
 
@@ -39,7 +40,7 @@ export const stationPositions: Record<string, StationPos> = {
 
   // --- shipping ---
   teknium: { x: 360, y: 420, side: "below", angle: -45, anchor: "start" },
-  pili: { x: 420, y: 340, side: "below", angle: -45, anchor: "start" },
+  pili: { x: 400, y: 300, side: "below", angle: -45, anchor: "start" },
   phil: { x: 640, y: 410, side: "above", angle: -45, anchor: "start" },
   sphinx: { x: 860, y: 540, side: "above", angle: -45, anchor: "start" },
   "simon-tokumin": { x: 1080, y: 540, side: "below", angle: -45, anchor: "start" },
@@ -51,32 +52,20 @@ export const stationPositions: Record<string, StationPos> = {
   "charlie-holtz": { x: 820, y: 720, side: "above", angle: -45, anchor: "start" },
   "thorsten-ball": { x: 780, y: 580, side: "above", angle: -45, anchor: "end" },
   "sunil-pai": { x: 1180, y: 680, side: "below", angle: -45, anchor: "start" },
-  "emanuele-di-pietro": {
-    x: 1460,
-    y: 800,
-    side: "below",
-    angle: -45,
-    anchor: "start",
-  },
+  "emanuele-di-pietro": { x: 1420, y: 900, side: "below", angle: -45, anchor: "start" },
 
   // --- gpu ---
   tokenbender: { x: 360, y: 880, side: "below", angle: -45, anchor: "start" },
   "elie-bakouch": { x: 560, y: 980, side: "above", angle: -45, anchor: "start" },
-  "archie-sengupta": { x: 740, y: 1040, side: "below", angle: -45, anchor: "end" },
+  "archie-sengupta": { x: 700, y: 1000, side: "below", angle: -45, anchor: "end" },
   maharshi: { x: 1000, y: 1080, side: "above", angle: -45, anchor: "start" },
   vixhal: { x: 1220, y: 1160, side: "below", angle: -45, anchor: "start" },
   "sanskar-pandey": { x: 1440, y: 1420, side: "below", angle: -45, anchor: "start" },
 
   // --- systems (flat lower band, then SE spur) ---
-  "arpit-bhayani": { x: 620, y: 1240, side: "below", angle: -45, anchor: "start" },
+  "arpit-bhayani": { x: 540, y: 1300, side: "below", angle: -45, anchor: "start" },
   "daniel-lockyer": { x: 900, y: 1240, side: "above", angle: -45, anchor: "start" },
-  "devanshu-sharma": {
-    x: 1480,
-    y: 1180,
-    side: "above",
-    angle: -45,
-    anchor: "start",
-  },
+  "devanshu-sharma": { x: 1520, y: 1220, side: "above", angle: -45, anchor: "start" },
   "can-duruk": { x: 1760, y: 1140, side: "above", angle: -45, anchor: "end" },
   shrinath: { x: 1960, y: 1280, side: "below", angle: -45, anchor: "start" },
   "karan-shingde": { x: 2080, y: 1420, side: "above", angle: -45, anchor: "start" },
@@ -90,24 +79,18 @@ export const stationPositions: Record<string, StationPos> = {
   mageframe: { x: 1120, y: 1480, side: "below", angle: -45, anchor: "start" },
   jitesh: { x: 800, y: 1200, side: "above", angle: -45, anchor: "start" },
   levelsio: { x: 1320, y: 960, side: "above", angle: -45, anchor: "start" },
-  guru: { x: 1460, y: 1240, side: "above", angle: -45, anchor: "start" },
+  guru: { x: 1400, y: 1300, side: "above", angle: -45, anchor: "start" },
   "jamon-holmgren": { x: 1680, y: 1380, side: "above", angle: -45, anchor: "start" },
   dhh: { x: 1900, y: 1540, side: "above", angle: -45, anchor: "start" },
 
   // --- personal (clear of design pill / andrew-a / ankit) ---
   judah: { x: 1380, y: 480, side: "below", angle: -45, anchor: "start" },
-  ankit: { x: 1540, y: 360, side: "above", angle: -45, anchor: "start" },
-  "andrew-alimbuyuguen": {
-    x: 1680,
-    y: 260,
-    side: "below",
-    angle: -45,
-    anchor: "end",
-  },
+  ankit: { x: 1480, y: 380, side: "above", angle: -45, anchor: "start" },
+  "andrew-alimbuyuguen": { x: 1720, y: 220, side: "below", angle: -45, anchor: "end" },
   srijan: { x: 1800, y: 400, side: "below", angle: -45, anchor: "start" },
-  "henrik-karlsson": { x: 1900, y: 560, side: "below", angle: -45, anchor: "start" },
-  siddharth: { x: 2020, y: 700, side: "below", angle: -45, anchor: "end" },
-  sarv: { x: 2080, y: 860, side: "above", angle: -45, anchor: "start" },
+  "henrik-karlsson": { x: 1940, y: 520, side: "below", angle: -45, anchor: "start" },
+  siddharth: { x: 2080, y: 700, side: "below", angle: -45, anchor: "end" },
+  sarv: { x: 2140, y: 900, side: "above", angle: -45, anchor: "start" },
 
   // --- design (start east of andrew-a so pill does not sit on his name) ---
   felipe: { x: 1900, y: 70, side: "above", angle: -45, anchor: "start" },
@@ -116,10 +99,10 @@ export const stationPositions: Record<string, StationPos> = {
   "simon-sarris": { x: 1820, y: 900, side: "above", angle: -45, anchor: "start" },
 
   // --- essays ---
-  "paras-chopra": { x: 1880, y: 680, side: "below", angle: -45, anchor: "start" },
-  "zara-zhang": { x: 1700, y: 760, side: "above", angle: -45, anchor: "end" },
-  "chris-lakin": { x: 1460, y: 1020, side: "above", angle: -45, anchor: "start" },
-  christian: { x: 1200, y: 1300, side: "below", angle: -45, anchor: "start" },
+  "paras-chopra": { x: 1800, y: 700, side: "below", angle: -45, anchor: "start" },
+  "zara-zhang": { x: 1680, y: 740, side: "above", angle: -45, anchor: "end" },
+  "chris-lakin": { x: 1580, y: 940, side: "below", angle: -45, anchor: "start" },
+  christian: { x: 1140, y: 1360, side: "below", angle: -45, anchor: "start" },
 };
 
 /** Wide canvas; padX keeps terminus pills off the crop edge. */
