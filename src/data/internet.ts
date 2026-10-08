@@ -586,7 +586,7 @@ export const metroLineDefs: MetroLineDef[] = [
   {
     id: "research-lists",
     name: "research lists",
-    color: "#CA8A04",
+    color: "#A16207",
     stationIds: [
       "andrew-ng",
       "ankit-jxa",
@@ -599,7 +599,7 @@ export const metroLineDefs: MetroLineDef[] = [
   {
     id: "systems-people",
     name: "systems people",
-    color: "#B91C1C",
+    color: "#BE123C",
     stationIds: [
       "arpit-bhayani",
       "daniel-lockyer",

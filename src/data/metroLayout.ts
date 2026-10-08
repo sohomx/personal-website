@@ -109,7 +109,7 @@ export const stationPositions: Record<string, StationPos> = {
   christian: { x: 920, y: 780, side: "above", angle: -40, anchor: "start" },
 };
 
-export const MAP_VIEW = { w: 1580, h: 1040, pad: 48 } as const;
+export const MAP_VIEW = { w: 1640, h: 1100, pad: 56 } as const;
 
 type Pt = { x: number; y: number };
 

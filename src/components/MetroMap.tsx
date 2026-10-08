@@ -127,7 +127,8 @@ export function MetroMap({ lines }: Props) {
       <div className="metro-desktop" aria-label="transit map of people">
         <svg
           className="metro-svg"
-          viewBox={`0 0 ${svgW} ${svgH}`}
+          viewBox={`-40 -30 ${svgW} ${svgH}`}
+          overflow="visible"
           role="img"
           aria-label="metro-style map of people by topic line"
         >
