@@ -3,7 +3,7 @@
 :root {
   --bg: #f6f5f1;
   --ink: #141414;
-  --muted: #5c5a54;
+  --muted: #4a4840;
   --accent: #ff4a1c;
   --border: #141414;
   --shadow: #141414;
@@ -67,7 +67,6 @@ body {
       color-mix(in srgb, var(--ink) 4%, transparent),
       transparent 50%
     );
-  background-attachment: fixed;
 }
 
 a {

@@ -1,4 +1,3 @@
-import { TypedLine } from "@/components/TypedLine";
 import { about, hero, nowLine } from "@/data/content";
 
 export function Hero() {
@@ -9,7 +8,7 @@ export function Hero() {
         {hero.brand}
       </h1>
       <p className="display mt-4 max-w-2xl text-[clamp(1.6rem,4vw,2.6rem)]">
-        <TypedLine text={hero.owning} />
+        {hero.owning}
       </p>
       <p className="mt-3 max-w-xl text-lg text-muted">{hero.sub}</p>
       <p className="mt-6 max-w-2xl">{about.paragraphs[0]}</p>

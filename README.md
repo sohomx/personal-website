@@ -23,4 +23,5 @@ Build command: `npm run build`
 Output directory: `out`  
 Canonical URL: `https://sxohom.xyz` (no `basePath`)
 
-Hosting (Cloudflare Pages → private GitHub repo) is configured separately.
+Hosted on **GitHub Pages** via `.github/workflows/pages.yml` (push to `main`).  
+Custom domain: `sxohom.xyz` (`public/CNAME`).

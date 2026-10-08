@@ -8,7 +8,7 @@ export function OpenIssueDemo() {
         <h2 id="demo-heading" className="display text-2xl">
           live demo
         </h2>
-        <span className="mono rounded-none border border-accent px-2 py-1 text-xs text-accent">
+        <span className="mono rounded-none border border-border px-2 py-1 text-xs">
           {d.label}
         </span>
       </div>

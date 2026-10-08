@@ -28,7 +28,7 @@ export function ProjectGrid() {
               <p className="kicker mt-1">{p.subtitle}</p>
               <p className="mt-4 text-[0.98rem]">{p.box[0]}</p>
               <p className="mt-2 text-[0.98rem] text-muted">{p.box[1]}</p>
-              <span className="mono mt-auto pt-5 text-sm text-accent group-hover:underline">
+              <span className="mono mt-auto pt-5 text-sm underline-offset-2 group-hover:underline">
                 read it →
               </span>
             </Link>
