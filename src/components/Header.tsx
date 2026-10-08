@@ -14,6 +14,12 @@ export function Header() {
         <Link href="/#projects" className="quiet-link">
           projects
         </Link>
+        <Link href="/tools/" className="quiet-link">
+          tools
+        </Link>
+        <Link href="/internet/" className="quiet-link">
+          internet
+        </Link>
         <Link href="/colophon/" className="quiet-link">
           colophon
         </Link>

@@ -25,6 +25,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
+      url: `${site.url}/tools/`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${site.url}/internet/`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${site.url}/llms.txt`,
       lastModified,
       changeFrequency: "monthly",
@@ -38,6 +50,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${site.url}/index.md`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${site.url}/tools.md`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: `${site.url}/internet.md`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.5,
