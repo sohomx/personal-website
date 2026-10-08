@@ -20,11 +20,7 @@ export function ProjectGrid() {
             >
               <div className="min-w-0">
                 <span className="text-ink group-hover:underline">{p.title}</span>
-                <span className="mt-1 block text-sm text-muted sm:mt-0 sm:ml-0">
-                  {p.subtitle}
-                  {" · "}
-                  {p.box[0]}
-                </span>
+                <span className="mt-1 block text-sm text-muted">{p.subtitle}</span>
               </div>
               <span className="shrink-0 text-sm text-faint">{p.when}</span>
             </Link>
