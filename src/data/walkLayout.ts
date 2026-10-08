@@ -442,7 +442,7 @@ export function buildMobileWalkLayout(): {
   const padX = 52;
   const usable = W - padX * 2;
   // room above first trail for trailhead pin (clear of eval nerds pill)
-  let y = 72;
+  let y = 88;
   const trails: MobileTrailSection[] = [];
   const built: {
     meta: (typeof trailMeta)[number];
@@ -458,7 +458,7 @@ export function buildMobileWalkLayout(): {
     const n = meta.waypointIds.length;
     const bandH = Math.max(150, 56 + n * 34);
     const bandY = y;
-    const startY = y + 48;
+    const startY = y + (ti === 0 ? 64 : 48);
     const endY = y + bandH - 28;
     // alternate lean, but keep markers inset so left labels never clip
     const lean = ti % 2 === 0 ? 1 : -1;
@@ -487,10 +487,10 @@ export function buildMobileWalkLayout(): {
       waypoints.map((w) => w.id),
       pts,
     );
-    // pill to the right of the path start, clear of trailhead on first band
+    // pill to the right of the path start; first band sits below trailhead
     const pill = {
-      x: Math.min(W - 88, Math.max(110, waypoints[0].x + 56)),
-      y: bandY + (ti === 0 ? 34 : 22),
+      x: Math.min(W - 88, Math.max(130, waypoints[0].x + 72)),
+      y: bandY + (ti === 0 ? 52 : 22),
     };
 
     built.push({ meta, waypoints, bandY, bandH, pill, d });
@@ -532,10 +532,10 @@ export function buildMobileWalkLayout(): {
 
   const h = y + 72;
   const first = trails[0]?.waypoints[0];
-  // trailhead above/left of first marker, clear of eval nerds pill
+  // trailhead above/left of first marker, well clear of eval nerds pill
   const trailhead = {
-    x: first ? Math.max(EDGE + 8, first.x - 36) : padX,
-    y: first ? first.y - 36 : 28,
+    x: first ? Math.max(EDGE + 8, first.x - 48) : padX,
+    y: first ? Math.max(18, first.y - 56) : 22,
   };
 
   return {

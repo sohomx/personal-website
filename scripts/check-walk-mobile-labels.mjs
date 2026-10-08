@@ -102,6 +102,7 @@ for (const width of WIDTHS) {
       const tb = thText.getBBox();
       const a = { x: t.x + tb.x, y: t.y + tb.y, w: tb.width, h: tb.height };
       const b = firstPill.getBBox();
+      const gapY = b.y - (a.y + a.h);
       const overlap = !(
         a.x + a.w + 2 <= b.x ||
         b.x + b.w + 2 <= a.x ||
@@ -109,12 +110,21 @@ for (const width of WIDTHS) {
         b.y + b.h + 2 <= a.y
       );
       if (overlap) problems.push("trailhead∩eval-nerds-pill");
+      else if (gapY < 10 && a.x + a.w > b.x && a.x < b.x + b.w) {
+        problems.push(`trailhead-tight-on-pill gapY=${gapY.toFixed(1)}`);
+      }
     }
 
-    // no straight river bar
-    if (svg.querySelector(".walk-river")) {
+    // no fake river SVG overlay
+    if (svg.querySelector(".walk-river, [data-river]")) {
       problems.push("river-bar-present");
     }
+    const thickBlue = [...svg.querySelectorAll("path")].some((p) => {
+      const stroke = (p.getAttribute("stroke") || "").toLowerCase();
+      const sw = Number(p.getAttribute("stroke-width") || 0);
+      return sw >= 6 && (stroke.includes("9eb") || stroke.includes("b7c") || stroke.includes("blue"));
+    });
+    if (thickBlue) problems.push("thick-blue-path-present");
 
     const leftMin = Math.min(...labels.map((l) => l.x));
     return { problems, count: labels.length, leftMin };
