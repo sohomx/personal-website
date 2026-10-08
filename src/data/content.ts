@@ -41,7 +41,7 @@ export const hero = {
 
 export const about = {
   paragraphs: [
-    "sohom pal. ai engineer at pocket, working on probable, a prediction-market agent. i spent april 2026 at network school with the pocket team, then stayed on. before that: lossfunk research on beacon, and safety evals for agents that touch solana.",
+    "ai engineer at pocket, working on probable, a prediction-market agent. i spent april 2026 at network school with the pocket team, then stayed on. before that: lossfunk research on beacon, and safety evals for agents that touch solana.",
   ],
 } as const;
 

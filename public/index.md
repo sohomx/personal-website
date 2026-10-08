@@ -4,7 +4,7 @@
 
 sohom pal. AI engineer at Pocket (Probable). Based in Bangalore, India.
 
-sohom pal. ai engineer at pocket, working on probable, a prediction-market agent. i spent april 2026 at network school with the pocket team, then stayed on. before that: lossfunk research on beacon, and safety evals for agents that touch solana.
+ai engineer at pocket, working on probable, a prediction-market agent. i spent april 2026 at network school with the pocket team, then stayed on. before that: lossfunk research on beacon, and safety evals for agents that touch solana.
 
 now: building the proof layer for probable at pocket.
 
