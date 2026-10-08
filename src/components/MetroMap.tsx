@@ -15,10 +15,11 @@ import {
   type Person,
 } from "@/data/internet";
 import {
+  LABEL,
   MAP_VIEW,
   pathThrough,
   stationPositions,
-  terminusAnchor,
+  terminusPill,
 } from "@/data/metroLayout";
 
 type StationRef = {
@@ -127,7 +128,7 @@ export function MetroMap({ lines }: Props) {
       <div className="metro-desktop" aria-label="transit map of people">
         <svg
           className="metro-svg"
-          viewBox={`-40 -30 ${svgW} ${svgH}`}
+          viewBox={`0 0 ${svgW} ${svgH}`}
           overflow="visible"
           role="img"
           aria-label="metro-style map of people by topic line"
@@ -152,34 +153,26 @@ export function MetroMap({ lines }: Props) {
           {/* terminus pills */}
           {lines.map((line) => {
             const ids = line.people.map((p) => p.id);
-            const t = terminusAnchor(ids[0], ids[1]);
-            const label = line.name;
-            const charW = 6.2;
-            const padX = 10;
-            const w = Math.max(52, label.length * charW + padX * 2);
-            const h = 18;
-            const x =
-              t.anchor === "end" ? t.x - w : t.anchor === "start" ? t.x : t.x - w / 2;
-            const y = t.y - h / 2;
+            const pill = terminusPill(ids[0], ids[1], line.name);
             return (
               <g key={`term-${line.id}`} className="metro-terminus">
                 <rect
-                  x={x}
-                  y={y}
-                  width={w}
-                  height={h}
+                  x={pill.x}
+                  y={pill.y}
+                  width={pill.w}
+                  height={pill.h}
                   rx={9}
                   ry={9}
                   fill={line.color}
                 />
                 <text
-                  x={x + w / 2}
-                  y={y + h / 2 + 0.5}
+                  x={pill.x + pill.w / 2}
+                  y={pill.y + pill.h / 2 + 0.5}
                   textAnchor="middle"
                   dominantBaseline="middle"
                   className="metro-terminus-text"
                 >
-                  {label}
+                  {line.name}
                 </text>
               </g>
             );
@@ -192,7 +185,8 @@ export function MetroMap({ lines }: Props) {
             const isX = interchangeIds.has(person.id);
             const isOpen = openId === person.id;
             const stroke = personLines[0]?.color ?? "#666";
-            const labelDy = pos.side === "above" ? -14 : 16;
+            const labelDy =
+              pos.side === "above" ? LABEL.dyAbove : LABEL.dyBelow;
             return (
               <g
                 key={person.id}
@@ -226,7 +220,6 @@ export function MetroMap({ lines }: Props) {
                       fill="#f7f7f8"
                       stroke={stroke}
                       strokeWidth={2.5}
-                      className="metro-interchange-mark"
                     />
                   ) : (
                     <circle
@@ -239,6 +232,7 @@ export function MetroMap({ lines }: Props) {
                   <text
                     className="metro-station-name"
                     fill="#555555"
+                    fontSize={LABEL.fontSize}
                     transform={`translate(0 ${labelDy}) rotate(${pos.angle})`}
                     textAnchor={pos.anchor ?? "start"}
                     dominantBaseline="middle"
