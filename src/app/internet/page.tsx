@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
-import { internetIntro, personGroups } from "@/data/internet";
+import {
+  getPeopleStats,
+  internetIntro,
+  personGroups,
+  type Person,
+} from "@/data/internet";
 
 export const metadata: Metadata = {
   title: "map of my internet",
@@ -21,47 +26,93 @@ export const metadata: Metadata = {
   },
 };
 
-export default function InternetPage() {
+function PersonCard({ person }: { person: Person }) {
+  const xHref = `https://x.com/${person.x}`;
   return (
-    <article className="site-shell py-10">
+    <li className="person-card">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        className="person-avatar"
+        src={person.avatar}
+        alt=""
+        width={44}
+        height={44}
+        loading="lazy"
+        decoding="async"
+      />
+      <div className="person-meta">
+        <a
+          href={person.href}
+          className="person-name"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          {person.name}
+        </a>
+        <p className="person-links">
+          <a
+            href={person.href}
+            className="person-domain"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {person.domain}
+            <span aria-hidden="true"> ↗</span>
+          </a>
+          <span className="person-sep" aria-hidden="true">
+            ·
+          </span>
+          <a
+            href={xHref}
+            className="person-x"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            @{person.x}
+          </a>
+        </p>
+        <p className="person-note">{person.note}</p>
+      </div>
+    </li>
+  );
+}
+
+export default function InternetPage() {
+  const { personCount, topicCount } = getPeopleStats();
+
+  return (
+    <article className="py-10">
       <JsonLd />
-      <p className="text-sm text-muted">
-        <Link href="/" className="quiet-link">
-          back to home
-        </Link>
-      </p>
-      <h1 className="mt-6 text-[1.75rem] font-medium tracking-tight sm:text-[1.875rem]">
-        {internetIntro.title}
-      </h1>
-      <p className="mt-4 text-muted">{internetIntro.lead}</p>
+
+      <div className="site-shell">
+        <p className="text-sm text-muted">
+          <Link href="/" className="quiet-link">
+            back to home
+          </Link>
+        </p>
+        <h1 className="mt-6 text-[1.75rem] font-medium tracking-tight sm:text-[1.875rem]">
+          {internetIntro.title}
+        </h1>
+        <p className="mt-4 max-w-xl text-muted">{internetIntro.lead}</p>
+        <p className="mt-3 text-sm text-faint">
+          {personCount} people, {topicCount} topics
+        </p>
+      </div>
 
       {personGroups.map((group) => (
         <section
           key={group.id}
-          className="mt-10 space-y-3"
+          className="people-section"
           aria-labelledby={group.id}
         >
-          <h2 id={group.id} className="text-sm font-medium">
-            {group.title}
-          </h2>
-          <ul className="list-none space-y-3 p-0">
+          <div className="site-shell">
+            <h2 id={group.id} className="people-cat">
+              {group.title}
+            </h2>
+          </div>
+          <ul className="people-grid list-none p-0">
             {group.people.map((person) => (
-              <li
-                key={person.name}
-                className="text-[1.0625rem] leading-relaxed"
-              >
-                <a
-                  href={person.href}
-                  className="quiet-link font-medium"
-                  rel="noopener noreferrer"
-                >
-                  {person.name}
-                </a>
-                <span className="text-muted">
-                  {" · "}
-                  {person.note}
-                </span>
-              </li>
+              <PersonCard key={person.id} person={person} />
             ))}
           </ul>
         </section>

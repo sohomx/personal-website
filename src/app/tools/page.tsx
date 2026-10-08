@@ -3,11 +3,11 @@ import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import {
   codeWith,
+  getToolsStats,
   olderTools,
   projectHref,
   toolGroups,
   toolsIntro,
-  type TakePart,
   type Tool,
 } from "@/data/tools";
 
@@ -29,86 +29,134 @@ export const metadata: Metadata = {
   },
 };
 
-function Take({ parts }: { parts: TakePart[] }) {
+function ToolCard({ tool }: { tool: Tool }) {
   return (
-    <>
-      {parts.map((part, i) => {
-        if (part.kind === "text") {
-          return <span key={`t-${i}`}>{part.text}</span>;
-        }
-        return (
-          <Link
-            key={`${part.slug}-${i}`}
-            href={projectHref(part.slug)}
-            className="quiet-link"
-          >
-            {part.label}
-          </Link>
-        );
-      })}
-    </>
-  );
-}
-
-function ToolRow({ tool }: { tool: Tool }) {
-  return (
-    <li className="text-[1.0625rem] leading-relaxed">
+    <li className="tool-card">
       <a
         href={tool.href}
-        className="quiet-link font-medium"
+        className="tool-head"
         rel="noopener noreferrer"
+        target="_blank"
       >
-        {tool.name}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="tool-logo"
+          src={tool.logo}
+          alt=""
+          width={28}
+          height={28}
+          loading="lazy"
+          decoding="async"
+        />
+        <span className="tool-name">
+          {tool.name}
+          <span className="ext-arrow" aria-hidden="true">
+            {" "}
+            ↗
+          </span>
+        </span>
       </a>
-      <span className="text-muted">
-        {" · "}
-        <Take parts={tool.take} />
-      </span>
+      <p className="tool-take">{tool.take}</p>
+      {tool.usedIn.length > 0 ? (
+        <p className="tool-used">
+          <span className="tool-used-label">used in</span>
+          {tool.usedIn.map((u) => (
+            <Link
+              key={u.slug}
+              href={projectHref(u.slug)}
+              className="used-chip"
+            >
+              {u.label}
+            </Link>
+          ))}
+        </p>
+      ) : null}
     </li>
   );
 }
 
 export default function ToolsPage() {
+  const { toolCount, projectCount } = getToolsStats();
+
   return (
-    <article className="site-shell py-10">
+    <article className="py-10">
       <JsonLd />
-      <p className="text-sm text-muted">
-        <Link href="/" className="quiet-link">
-          back to home
-        </Link>
-      </p>
-      <h1 className="mt-6 text-[1.75rem] font-medium tracking-tight sm:text-[1.875rem]">
-        {toolsIntro.title}
-      </h1>
-      <p className="mt-4 text-muted">{toolsIntro.lead}</p>
+
+      <div className="site-shell">
+        <p className="text-sm text-muted">
+          <Link href="/" className="quiet-link">
+            back to home
+          </Link>
+        </p>
+        <h1 className="mt-6 text-[1.75rem] font-medium tracking-tight sm:text-[1.875rem]">
+          {toolsIntro.title}
+        </h1>
+        <p className="mt-4 max-w-xl text-muted">{toolsIntro.lead}</p>
+        <p className="mt-3 text-sm text-faint">
+          {toolCount} tools, {projectCount} projects
+        </p>
+      </div>
 
       {toolGroups.map((group) => (
-        <section key={group.id} className="mt-10 space-y-3" aria-labelledby={group.id}>
-          <h2 id={group.id} className="text-sm font-medium">
-            {group.title}
-          </h2>
-          <ul className="list-none space-y-3 p-0">
+        <section
+          key={group.id}
+          className="tools-section"
+          aria-labelledby={group.id}
+        >
+          <div className="site-shell">
+            <h2 id={group.id} className="tools-cat">
+              {group.title}
+            </h2>
+          </div>
+          <ul className="tools-grid list-none p-0">
             {group.tools.map((tool) => (
-              <ToolRow key={tool.name} tool={tool} />
+              <ToolCard key={tool.id} tool={tool} />
             ))}
           </ul>
         </section>
       ))}
 
-      <section className="mt-10 space-y-3" aria-labelledby="older">
-        <h2 id="older" className="text-sm font-medium">
-          older stuff
-        </h2>
-        <ul className="list-none space-y-3 p-0">
+      <section className="tools-section" aria-labelledby="older">
+        <div className="site-shell">
+          <h2 id="older" className="tools-cat">
+            older stuff
+          </h2>
+        </div>
+        <ul className="tools-grid list-none p-0">
           {olderTools.map((tool) => (
-            <ToolRow key={tool.name} tool={tool} />
+            <ToolCard key={tool.id} tool={tool} />
           ))}
         </ul>
       </section>
 
-      <p className="mt-12 text-sm text-muted">
-        what i code with: {codeWith}
-      </p>
+      <section className="site-shell mt-14" aria-labelledby="code-with">
+        <h2 id="code-with" className="tools-cat">
+          what i code with
+        </h2>
+        <ul className="code-with-list list-none p-0">
+          {codeWith.map((item) => (
+            <li key={item.id}>
+              <a
+                href={item.href}
+                className="code-with-item"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={item.logo}
+                  alt=""
+                  width={18}
+                  height={18}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span>{item.name}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
     </article>
   );
 }
