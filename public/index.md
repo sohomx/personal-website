@@ -37,5 +37,6 @@ if you have an agent you can't prove works, send me a trace.
 - [home](https://sxohom.xyz/)
 - [home markdown](https://sxohom.xyz/index.md)
 - [colophon](https://sxohom.xyz/colophon/)
+- [things you could buy](https://sxohom.xyz/buy/)
 - [llms.txt](https://sxohom.xyz/llms.txt)
 - [llms-full.txt](https://sxohom.xyz/llms-full.txt)
