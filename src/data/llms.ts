@@ -1,3 +1,4 @@
+import { buildBuyMarkdown } from "./buy";
 import {
   about,
   contact,
@@ -50,6 +51,7 @@ ${projectLines}
 - [home](${site.url}/)
 - [home markdown](${site.url}/index.md)
 - [colophon](${site.url}/colophon/)
+- [things you could buy](${site.url}/buy/)
 - [llms.txt](${site.url}/llms.txt)
 - [llms-full.txt](${site.url}/llms-full.txt)
 `;
@@ -145,6 +147,7 @@ ${nowLine}
 - [Home (markdown)](${site.url}/index.md)
 - [Full plain text](${site.url}/llms-full.txt): every page in one file
 - [Colophon](${site.url}/colophon/)
+- [Things you could buy](${site.url}/buy/): desk, sleep, software, and a MacBook Pro
 
 ## Projects
 
@@ -169,6 +172,7 @@ export function buildLlmsFullTxt(): string {
   const parts = [
     buildHomeMarkdown(),
     buildColophonMarkdown(),
+    buildBuyMarkdown(site.url),
     ...projects.map((p) => buildProjectMarkdown(p)),
   ];
   return parts.join("\n\n---\n\n");

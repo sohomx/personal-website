@@ -17,6 +17,9 @@ export function Header() {
         <Link href="/colophon/" className="quiet-link">
           colophon
         </Link>
+        <Link href="/buy/" className="quiet-link">
+          buy
+        </Link>
         <a href="/llms.txt" className="quiet-link">
           llms.txt
         </a>

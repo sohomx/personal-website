@@ -13,6 +13,10 @@ export function Footer() {
           colophon
         </Link>
         {" · "}
+        <Link href="/buy/" className="quiet-link">
+          buy
+        </Link>
+        {" · "}
         <a href="/llms.txt" className="quiet-link">
           llms.txt
         </a>
