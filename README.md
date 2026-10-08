@@ -1,27 +1,26 @@
-# sohom
+# sohom — personal website
 
-Personal site for [sohom](https://github.com/sohomx) — AI engineer at Pocket.
-
-Content adapted from the previous Bear Blog at https://sohom.bearblog.dev/
-
-## Develop
-
-```bash
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
+Static personal site for [sxohom.xyz](https://sxohom.xyz).
 
 ## Stack
 
-- Next.js (App Router)
-- TypeScript
-- Tailwind CSS
-- Framer Motion
+- Next.js (App Router) with `output: 'export'`
+- React 19, Tailwind CSS v4
+- Build output: `out/` (ready for Cloudflare Pages)
 
-## Notes
+## Scripts
 
-- Site copy lives in `src/data/content.ts`
-- Add an email CTA in `Contact` / `content.ts` when you want it public
-- Domain metadata currently points at `https://sohom.xyz`
+```bash
+npm ci
+npm run dev      # local
+npm run build    # writes static files to out/
+npm run lint
+```
+
+## Deploy notes
+
+Build command: `npm run build`  
+Output directory: `out`  
+Canonical URL: `https://sxohom.xyz` (no `basePath`)
+
+Hosting (Cloudflare Pages → private GitHub repo) is configured separately.

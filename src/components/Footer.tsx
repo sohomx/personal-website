@@ -1,11 +1,26 @@
+import Link from "next/link";
+import { IstClock } from "@/components/IstClock";
+import { site } from "@/data/content";
+
 export function Footer() {
   return (
-    <footer className="border-t border-[var(--line)]">
-      <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-8 text-sm text-[var(--muted)] sm:flex-row sm:items-center sm:justify-between sm:px-8">
-        <p className="font-mono text-xs uppercase tracking-[0.18em]">
-          sohom · bangalore
+    <footer className="site-shell mt-16 border-t border-border py-8">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="mono text-sm text-muted">
+          <Link href="/" className="text-ink no-underline hover:text-accent">
+            {site.name}
+          </Link>
+          {" · "}
+          <Link href="/colophon/" className="hover:text-accent">
+            colophon
+          </Link>
+          {" · "}
+          <a href="/llms.txt" className="hover:text-accent">
+            llms.txt
+          </a>
+          {" · no tracking"}
         </p>
-        <p>built for proof, not polish for its own sake.</p>
+        <IstClock />
       </div>
     </footer>
   );

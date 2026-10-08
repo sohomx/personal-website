@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, DM_Sans, IBM_Plex_Mono } from "next/font/google";
-import { Header } from "@/components/Header";
+import type { ReactNode } from "react";
+import {
+  Big_Shoulders,
+  Figtree,
+  IBM_Plex_Mono,
+  Patrick_Hand,
+} from "next/font/google";
 import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
+import { JsonLd } from "@/components/JsonLd";
+import { ThemeInit } from "@/components/ThemeInit";
 import { site } from "@/data/content";
 import "./globals.css";
 
-const display = Instrument_Serif({
+const display = Big_Shoulders({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
+  weight: ["600", "700", "800"],
 });
 
-const body = DM_Sans({
+const body = Figtree({
   variable: "--font-body",
   subsets: ["latin"],
 });
@@ -23,6 +30,12 @@ const mono = IBM_Plex_Mono({
   weight: ["400", "500"],
 });
 
+const hand = Patrick_Hand({
+  variable: "--font-hand",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -30,6 +43,9 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description: site.description,
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: site.title,
     description: site.description,
@@ -44,18 +60,32 @@ export const metadata: Metadata = {
     description: site.description,
     creator: "@sxohom",
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}
+      className={`${display.variable} ${body.variable} ${mono.variable} ${hand.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col font-sans">
+      <head>
+        <ThemeInit />
+      </head>
+      <body className="flex min-h-full flex-col font-sans">
+        <a href="#main" className="skip-link">
+          skip to content
+        </a>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main" className="flex-1">
+          {children}
+        </main>
         <Footer />
+        <JsonLd />
       </body>
     </html>
   );
