@@ -71,13 +71,13 @@ function labelOffset(side: WalkLabelSide): {
 } {
   switch (side) {
     case "left":
-      return { x: -8, y: 3, anchor: "end" };
+      return { x: -10, y: 3, anchor: "end" };
     case "right":
-      return { x: 8, y: 3, anchor: "start" };
+      return { x: 10, y: 3, anchor: "start" };
     case "above":
-      return { x: 0, y: -11, anchor: "middle" };
+      return { x: 0, y: -12, anchor: "middle" };
     case "below":
-      return { x: 0, y: 14, anchor: "middle" };
+      return { x: 0, y: 15, anchor: "middle" };
   }
 }
 
@@ -88,7 +88,6 @@ function TrailPaths({
 }) {
   return (
     <>
-      {/* faint worn under-path */}
       {trails.map((trail) => (
         <path
           key={`under-${trail.id}`}
@@ -130,6 +129,7 @@ function WaypointMarks({
   openFromEl,
   nameClass,
   keyPrefix = "",
+  hitRadius = 0,
 }: {
   ids: string[];
   positions: Record<string, WalkWaypoint>;
@@ -140,6 +140,7 @@ function WaypointMarks({
   openFromEl: (id: string, el: Element) => void;
   nameClass: string;
   keyPrefix?: string;
+  hitRadius?: number;
 }) {
   return (
     <>
@@ -175,6 +176,14 @@ function WaypointMarks({
                 }
               }}
             >
+              {hitRadius > 0 ? (
+                <circle
+                  r={hitRadius}
+                  fill="transparent"
+                  className="walk-hit"
+                  aria-hidden="true"
+                />
+              ) : null}
               {isX ? (
                 <circle
                   r={4.2}
@@ -252,6 +261,129 @@ function TrailPills({
         );
       })}
     </>
+  );
+}
+
+function StationCard({
+  tipId,
+  station,
+  trailColorById,
+  isNarrow,
+  tipLeft,
+  anchor,
+  onClose,
+}: {
+  tipId: string;
+  station: StationRef;
+  trailColorById: Map<string, string>;
+  isNarrow: boolean;
+  tipLeft: number;
+  anchor: { x: number; y: number } | null;
+  onClose: () => void;
+}) {
+  if (isNarrow) {
+    return (
+      <>
+        <button
+          type="button"
+          className="walk-sheet-backdrop"
+          aria-label="close card"
+          onClick={onClose}
+        />
+        <div
+          id={tipId}
+          className="metro-tooltip walk-tooltip walk-sheet"
+          role="dialog"
+          aria-modal="true"
+          data-open={station.person.id}
+        >
+          <div className="walk-sheet-handle" aria-hidden="true" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={station.person.avatar}
+            alt=""
+            width={40}
+            height={40}
+            className="metro-tooltip-avatar"
+          />
+          <div className="metro-tooltip-body">
+            <p className="metro-tooltip-name">{station.person.name}</p>
+            <p className="metro-tooltip-domain">
+              <a
+                href={station.person.href}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {station.person.domain}
+                <span aria-hidden="true"> ↗</span>
+              </a>
+            </p>
+            <p className="metro-tooltip-note">{station.person.note}</p>
+            <p className="metro-tooltip-lines">
+              {station.trails.map((trail) => (
+                <span
+                  key={trail.id}
+                  style={{ color: trailColorById.get(trail.id) ?? trail.color }}
+                >
+                  {trail.name}
+                </span>
+              ))}
+            </p>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <div
+      id={tipId}
+      className="metro-tooltip walk-tooltip"
+      role="tooltip"
+      style={
+        anchor
+          ? {
+              left: tipLeft,
+              top: Math.min(Math.max(anchor.y + 16, 10), 420),
+              transform: "translate(-50%, 0)",
+            }
+          : { left: "50%", top: 12, transform: "translate(-50%, 0)" }
+      }
+      data-open={station.person.id}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={station.person.avatar}
+        alt=""
+        width={40}
+        height={40}
+        className="metro-tooltip-avatar"
+      />
+      <div className="metro-tooltip-body">
+        <p className="metro-tooltip-name">{station.person.name}</p>
+        <p className="metro-tooltip-domain">
+          <a
+            href={station.person.href}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {station.person.domain}
+            <span aria-hidden="true"> ↗</span>
+          </a>
+        </p>
+        <p className="metro-tooltip-note">{station.person.note}</p>
+        <p className="metro-tooltip-lines">
+          {station.trails.map((trail) => (
+            <span
+              key={trail.id}
+              style={{ color: trailColorById.get(trail.id) ?? trail.color }}
+            >
+              {trail.name}
+            </span>
+          ))}
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -335,6 +467,11 @@ export function WalkMap({ lines }: Props) {
     placeTooltip(el);
   }
 
+  function closeCard() {
+    setHoverId(null);
+    setAnchor(null);
+  }
+
   const tipLeft = anchor
     ? Math.min(Math.max(anchor.x, 140), wrapWidth - 140)
     : 0;
@@ -353,19 +490,86 @@ export function WalkMap({ lines }: Props) {
           aria-label="topo trail map of people"
         >
           <div
-            className="walk-frame walk-frame-mobile"
+            className="walk-frame walk-frame-mobile walk-hike"
             style={{
               width: "100%",
               aspectRatio: `${mobile.view.w} / ${mobile.view.h}`,
             }}
           >
-            <div className="walk-mobile-paper" aria-hidden="true" />
+            <div className="walk-hike-terrain" aria-hidden="true">
+              {mobile.trails.map((trail, i) => (
+                <div
+                  key={`terrain-${trail.id}`}
+                  className="walk-hike-band"
+                  style={{
+                    top: `${(trail.bandY / mobile.view.h) * 100}%`,
+                    height: `${(trail.bandH / mobile.view.h) * 100}%`,
+                  }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={trail.terrain}
+                    alt=""
+                    width={390}
+                    height={220}
+                    loading={i < 2 ? "eager" : "lazy"}
+                    decoding="async"
+                    draggable={false}
+                  />
+                </div>
+              ))}
+            </div>
             <svg
               className="walk-svg walk-svg-mobile"
               viewBox={`0 0 ${mobile.view.w} ${mobile.view.h}`}
               role="img"
               aria-label="portrait trail map of people by topic"
             >
+              <path
+                d={mobile.riverD}
+                fill="none"
+                stroke="#9eb8c4"
+                strokeWidth={14}
+                strokeLinecap="round"
+                opacity={0.28}
+                className="walk-river"
+                aria-hidden="true"
+              />
+              <path
+                d={mobile.riverD}
+                fill="none"
+                stroke="#b7ced8"
+                strokeWidth={7}
+                strokeLinecap="round"
+                opacity={0.45}
+                className="walk-river"
+                aria-hidden="true"
+              />
+
+              {mobile.trails.map((trail) =>
+                trail.continueTo ? (
+                  <g key={`cont-${trail.id}`} className="walk-continue">
+                    <path
+                      d={trail.continueTo.d}
+                      fill="none"
+                      stroke="#8a8578"
+                      strokeWidth={1.2}
+                      strokeDasharray="1.5 3.5"
+                      strokeLinecap="round"
+                      opacity={0.7}
+                    />
+                    <text
+                      x={trail.continueTo.labelAt.x}
+                      y={trail.continueTo.labelAt.y}
+                      textAnchor="middle"
+                      className="walk-continue-label"
+                    >
+                      {trail.continueTo.label}
+                    </text>
+                  </g>
+                ) : null,
+              )}
+
               <TrailPaths trails={mobile.trails} />
               <TrailPills trails={mobile.trails} />
               {mobile.trails.map((trail) => {
@@ -383,9 +587,11 @@ export function WalkMap({ lines }: Props) {
                     tipId={tipId}
                     openFromEl={openFromEl}
                     nameClass="walk-name walk-name-mobile"
+                    hitRadius={18}
                   />
                 );
               })}
+
               <g
                 className="walk-trailhead"
                 transform={`translate(${mobile.trailhead.x} ${mobile.trailhead.y})`}
@@ -396,6 +602,63 @@ export function WalkMap({ lines }: Props) {
                 />
                 <text x={8} y={4} className="walk-extra-label">
                   trailhead
+                </text>
+              </g>
+
+              <g
+                className="walk-compass"
+                transform={`translate(${mobile.compass.x} ${mobile.compass.y})`}
+              >
+                <circle r={14} fill="none" stroke="#8A8578" strokeWidth={0.9} />
+                <path d="M 0 -10 L 3 3 L 0 1 L -3 3 Z" fill="#5C5C58" />
+                <text y={-16} textAnchor="middle" className="walk-extra-label">
+                  n
+                </text>
+              </g>
+              <g
+                className="walk-scale"
+                transform={`translate(${mobile.scale.x} ${mobile.scale.y})`}
+              >
+                <line
+                  x1={0}
+                  y1={0}
+                  x2={90}
+                  y2={0}
+                  stroke="#5C5C58"
+                  strokeWidth={1.1}
+                />
+                <line
+                  x1={0}
+                  y1={-3.5}
+                  x2={0}
+                  y2={3.5}
+                  stroke="#5C5C58"
+                  strokeWidth={1.1}
+                />
+                <line
+                  x1={45}
+                  y1={-2.5}
+                  x2={45}
+                  y2={2.5}
+                  stroke="#5C5C58"
+                  strokeWidth={1}
+                />
+                <line
+                  x1={90}
+                  y1={-3.5}
+                  x2={90}
+                  y2={3.5}
+                  stroke="#5C5C58"
+                  strokeWidth={1.1}
+                />
+                <text x={0} y={13} textAnchor="middle" className="walk-extra-label">
+                  0
+                </text>
+                <text x={45} y={13} textAnchor="middle" className="walk-extra-label">
+                  1
+                </text>
+                <text x={90} y={13} textAnchor="middle" className="walk-extra-label">
+                  2 tabs
                 </text>
               </g>
             </svg>
@@ -506,57 +769,15 @@ export function WalkMap({ lines }: Props) {
       )}
 
       {openStation ? (
-        <div
-          id={tipId}
-          className="metro-tooltip walk-tooltip"
-          role="tooltip"
-          style={
-            anchor
-              ? {
-                  left: tipLeft,
-                  top: Math.min(
-                    Math.max(anchor.y + 16, 10),
-                    isNarrow ? 520 : 420,
-                  ),
-                  transform: "translate(-50%, 0)",
-                }
-              : { left: "50%", top: 12, transform: "translate(-50%, 0)" }
-          }
-          data-open={openStation.person.id}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={openStation.person.avatar}
-            alt=""
-            width={40}
-            height={40}
-            className="metro-tooltip-avatar"
-          />
-          <div className="metro-tooltip-body">
-            <p className="metro-tooltip-name">{openStation.person.name}</p>
-            <p className="metro-tooltip-domain">
-              <a
-                href={openStation.person.href}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                {openStation.person.domain}
-                <span aria-hidden="true"> ↗</span>
-              </a>
-            </p>
-            <p className="metro-tooltip-note">{openStation.person.note}</p>
-            <p className="metro-tooltip-lines">
-              {openStation.trails.map((trail) => (
-                <span
-                  key={trail.id}
-                  style={{ color: trailColorById.get(trail.id) ?? trail.color }}
-                >
-                  {trail.name}
-                </span>
-              ))}
-            </p>
-          </div>
-        </div>
+        <StationCard
+          tipId={tipId}
+          station={openStation}
+          trailColorById={trailColorById}
+          isNarrow={isNarrow}
+          tipLeft={tipLeft}
+          anchor={anchor}
+          onClose={closeCard}
+        />
       ) : null}
     </div>
   );

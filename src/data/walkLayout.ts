@@ -1,5 +1,5 @@
 /**
- * Topographic walk overlay — hiking-map geometry over the 1280×720 basemap.
+ * Topographic walk overlay - hiking-map geometry over the 1280×720 basemap.
  * Soft organic trails, short trail-marker names, left inset so labels never clip.
  */
 
@@ -30,7 +30,7 @@ export type WalkTrailDef = {
 };
 
 /**
- * Short trail-marker text from real names/handles only — never invented nicknames.
+ * Short trail-marker text from real names/handles only - never invented nicknames.
  * Full name stays on the hover card. Disambiguate only with parts of the real name.
  */
 export const walkTrailLabels: Record<string, string> = {
@@ -81,7 +81,7 @@ export const walkTrailLabels: Record<string, string> = {
   ankit: "ankit",
   srijan: "srijan",
   siddharth: "siddharth",
-  "andrew-alimbuyuguen": "andrew alimbuyuguen",
+  "andrew-alimbuyuguen": "alimbuyuguen",
   felipe: "felipe",
   "lenard-floeren": "lenard",
   "ma-baytas": "m.a. baytaş",
@@ -137,7 +137,7 @@ function organicPath(ids: string[], pts: Record<string, WalkWaypoint>): string {
 }
 
 /**
- * Desktop waypoints — left margin keeps short markers inside 1024–1440 crops.
+ * Desktop waypoints - left margin keeps short markers inside 1024-1440 crops.
  * SW cluster fans into empty paper; trails snake, not stack.
  */
 export const walkWaypoints: Record<string, WalkWaypoint> = {
@@ -231,7 +231,7 @@ export const walkWaypoints: Record<string, WalkWaypoint> = {
   christian: { id: "christian", x: 855, y: 618, label: "below" },
 };
 
-/** Muted earth trail colours — hiking map, not transit neon. */
+/** Muted earth trail colours - hiking map, not transit neon. */
 const trailMeta: Omit<WalkTrailDef, "d">[] = [
   {
     id: "eval-nerds",
@@ -406,7 +406,7 @@ export const BASEMAP = {
 } as const;
 
 /* -------------------------------------------------------------------------- */
-/* Mobile portrait reflow — stacked trails, vertical scroll                   */
+/* Mobile continuous hike - tall portrait with per-trail terrain crops        */
 /* -------------------------------------------------------------------------- */
 
 export type MobileTrailSection = {
@@ -416,37 +416,56 @@ export type MobileTrailSection = {
   pill: { x: number; y: number };
   d: string;
   waypoints: WalkWaypoint[];
+  /** band top/height in viewBox units for terrain placement */
+  bandY: number;
+  bandH: number;
+  terrain: string;
+  /** optional connector into the next trail */
+  continueTo?: { label: string; d: string; labelAt: { x: number; y: number } };
 };
 
 export function buildMobileWalkLayout(): {
   view: { w: number; h: number };
   trails: MobileTrailSection[];
   trailhead: { x: number; y: number };
+  compass: { x: number; y: number };
+  scale: { x: number; y: number };
+  /** soft river ribbon down the page (decorative) */
+  riverD: string;
 } {
   const W = WALK_MOBILE_VIEW.w;
-  const padX = 28;
+  const padX = 36;
   const usable = W - padX * 2;
-  let y = 48;
+  let y = 56;
   const trails: MobileTrailSection[] = [];
+  const built: {
+    meta: (typeof trailMeta)[number];
+    waypoints: WalkWaypoint[];
+    bandY: number;
+    bandH: number;
+    pill: { x: number; y: number };
+    d: string;
+  }[] = [];
 
-  for (const meta of trailMeta) {
+  for (let ti = 0; ti < trailMeta.length; ti++) {
+    const meta = trailMeta[ti];
     const n = meta.waypointIds.length;
-    const bandH = Math.max(120, 42 + n * 30);
-    const pillY = y + 16;
-    const startY = y + 40;
-    const endY = y + bandH - 20;
+    const bandH = Math.max(150, 56 + n * 34);
+    const bandY = y;
+    const startY = y + 44;
+    const endY = y + bandH - 28;
+    // alternate overall lean so the hike snakes left/right like a ridge walk
+    const lean = ti % 2 === 0 ? 1 : -1;
     const waypoints: WalkWaypoint[] = meta.waypointIds.map((id, i) => {
       const t = n === 1 ? 0.5 : i / (n - 1);
-      // meander like a footpath, not a transit diagonal
-      const zigX = Math.sin(t * Math.PI * 2.1) * 36;
-      const zigY = Math.cos(t * Math.PI * 1.6) * 10;
-      const x = padX + 16 + t * (usable - 32) + zigX;
-      const wy = startY + t * (endY - startY) + zigY;
-      const label: WalkLabelSide =
-        i === 0 ? "right" : i === n - 1 ? "left" : i % 2 === 0 ? "above" : "below";
+      const zigX = Math.sin(t * Math.PI * 1.7) * 42 * lean;
+      const mid = padX + usable * (0.42 + lean * 0.08);
+      const x = mid + (t - 0.5) * (usable * 0.72) + zigX;
+      const wy = startY + t * (endY - startY);
+      const label: WalkLabelSide = i % 2 === 0 ? "left" : "right";
       return {
         id,
-        x: Math.min(W - 32, Math.max(32, x)),
+        x: Math.min(W - 40, Math.max(40, x)),
         y: wy,
         label,
       };
@@ -454,26 +473,61 @@ export function buildMobileWalkLayout(): {
 
     const pts: Record<string, WalkWaypoint> = {};
     for (const wp of waypoints) pts[wp.id] = wp;
+    const d = organicPath(
+      waypoints.map((w) => w.id),
+      pts,
+    );
+    // pill in a clearing near the first third of the band
+    const pill = {
+      x: Math.min(W - 90, Math.max(90, waypoints[0].x + lean * 28)),
+      y: bandY + 22,
+    };
 
-    trails.push({
-      id: meta.id,
-      name: meta.name,
-      color: meta.color,
-      pill: { x: W / 2, y: pillY },
-      d: organicPath(
-        waypoints.map((w) => w.id),
-        pts,
-      ),
-      waypoints,
-    });
-
-    y += bandH + 12;
+    built.push({ meta, waypoints, bandY, bandH, pill, d });
+    y += bandH + 28; // gap for connector footpath
   }
 
-  const h = Math.max(WALK_MOBILE_VIEW.h, y + 60);
+  for (let ti = 0; ti < built.length; ti++) {
+    const cur = built[ti];
+    const next = built[ti + 1];
+    let continueTo: MobileTrailSection["continueTo"];
+    if (next) {
+      const a = cur.waypoints[cur.waypoints.length - 1];
+      const b = next.waypoints[0];
+      const mx = (a.x + b.x) / 2;
+      const my = (a.y + b.y) / 2;
+      const d = `M ${a.x} ${a.y} Q ${mx + 18} ${my} ${b.x} ${b.y}`;
+      continueTo = {
+        label: `continue to ${next.meta.name}`,
+        d,
+        labelAt: { x: mx, y: my - 6 },
+      };
+    }
+    trails.push({
+      id: cur.meta.id,
+      name: cur.meta.name,
+      color: cur.meta.color,
+      pill: cur.pill,
+      d: cur.d,
+      waypoints: cur.waypoints,
+      bandY: cur.bandY,
+      bandH: cur.bandH,
+      terrain: `/internet/mobile/${cur.meta.id}.webp`,
+      continueTo,
+    });
+  }
+
+  const h = y + 72;
+  const first = trails[0]?.waypoints[0];
   return {
     view: { w: W, h },
     trails,
-    trailhead: { x: padX + 10, y: h - 36 },
+    trailhead: {
+      x: first ? first.x - 18 : padX + 8,
+      y: first ? first.y - 28 : 28,
+    },
+    compass: { x: W - 48, y: h - 56 },
+    scale: { x: W / 2 - 45, y: h - 28 },
+    riverD: `M ${W * 0.72} 40 C ${W * 0.78} ${h * 0.2}, ${W * 0.55} ${h * 0.45}, ${W * 0.68} ${h * 0.7} S ${W * 0.82} ${h - 40}, ${W * 0.75} ${h - 20}`,
   };
 }

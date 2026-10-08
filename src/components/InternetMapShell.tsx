@@ -82,10 +82,17 @@ export function InternetMapShell({ lines, personCount, lineCount }: Props) {
         <p className="mt-3 text-sm text-faint">
           {personCount} stations, {lineCount} {unit}
         </p>
-        <ul className="metro-legend list-none p-0" aria-label="topic legend">
+        <ul
+          className={
+            mode === "walk"
+              ? "metro-legend metro-legend-chips list-none p-0"
+              : "metro-legend list-none p-0"
+          }
+          aria-label="topic legend"
+        >
           {mode === "walk"
             ? walkTrailDefs.map((item) => (
-                <li key={item.id} className="metro-legend-item">
+                <li key={item.id} className="metro-legend-item metro-legend-chip">
                   <span
                     className="metro-chip"
                     style={{ background: item.color }}
