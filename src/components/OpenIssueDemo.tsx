@@ -27,7 +27,7 @@ export function OpenIssueDemo() {
                   {ev.t} · {ev.kind}
                 </div>
                 <div>
-                  <span className="text-accent">{ev.status}</span> {ev.name}
+                  <strong>{ev.status}</strong> {ev.name}
                 </div>
                 <div className="text-muted">{ev.detail}</div>
               </li>
@@ -37,7 +37,7 @@ export function OpenIssueDemo() {
 
         <div className="terminal p-4">
           <p className="mb-3 text-muted">deterministic finding (right)</p>
-          <p className="text-accent">{d.finding.severity}</p>
+          <p className="font-medium">{d.finding.severity}</p>
           <p className="mt-1 text-lg">{d.finding.title}</p>
           <p className="mt-1 text-muted">fingerprint: {d.finding.fingerprint}</p>
           <p className="mt-3">{d.finding.summary}</p>

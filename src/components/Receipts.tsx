@@ -11,10 +11,7 @@ export function Receipts() {
           {receipts.map((r) => (
             <li key={r.id}>
               <a href={r.href} className="block min-h-11 py-1">
-                <span className="text-accent" aria-hidden="true">
-                  *
-                </span>{" "}
-                {r.line}
+                <span aria-hidden="true">*</span> {r.line}
               </a>
             </li>
           ))}
