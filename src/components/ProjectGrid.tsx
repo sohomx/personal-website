@@ -5,32 +5,28 @@ export function ProjectGrid() {
   return (
     <section
       id="projects"
-      className="site-shell scroll-mt-20 py-10"
+      className="site-shell scroll-mt-8 py-10"
       aria-labelledby="projects-heading"
     >
-      <h2 id="projects-heading" className="display text-3xl sm:text-4xl">
+      <h2 id="projects-heading" className="text-sm font-medium text-ink">
         stuff i&apos;ve made
       </h2>
-      <p className="mt-2 max-w-xl text-muted">
-        five things with receipts. each opens into the longer story.
-      </p>
-      <ul className="mt-8 grid list-none grid-cols-1 gap-4 p-0 md:grid-cols-2">
-        {projects.map((p, i) => (
-          <li key={p.slug} id={`project-${i + 1}`}>
+      <ul className="mt-6 list-none space-y-0 border-t border-border p-0">
+        {projects.map((p) => (
+          <li key={p.slug} className="border-b border-border">
             <Link
-              href={`/projects/${p.slug}`}
-              className="box group flex h-full flex-col p-5 no-underline"
+              href={`/projects/${p.slug}/`}
+              className="quiet-link group flex flex-col gap-1 py-4 no-underline sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
             >
-              <div className="flex items-baseline justify-between gap-3">
-                <h3 className="display text-2xl">{p.title}</h3>
-                <span className="mono text-xs text-muted">{p.when}</span>
+              <div className="min-w-0">
+                <span className="text-ink group-hover:underline">{p.title}</span>
+                <span className="mt-1 block text-sm text-muted sm:mt-0 sm:ml-0">
+                  {p.subtitle}
+                  {" · "}
+                  {p.box[0]}
+                </span>
               </div>
-              <p className="kicker mt-1">{p.subtitle}</p>
-              <p className="mt-4 text-[0.98rem]">{p.box[0]}</p>
-              <p className="mt-2 text-[0.98rem] text-muted">{p.box[1]}</p>
-              <span className="mono mt-auto pt-5 text-sm underline-offset-2 group-hover:underline">
-                read it →
-              </span>
+              <span className="shrink-0 text-sm text-faint">{p.when}</span>
             </Link>
           </li>
         ))}

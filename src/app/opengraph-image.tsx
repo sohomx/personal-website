@@ -15,30 +15,28 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#f6f5f1",
-          color: "#141414",
-          padding: "64px",
-          border: "12px solid #141414",
+          background: "#f7f7f8",
+          color: "#1a1a1a",
+          padding: "72px",
         }}
       >
         <div
           style={{
-            fontSize: 160,
-            fontWeight: 800,
-            letterSpacing: "-0.05em",
-            lineHeight: 0.9,
+            fontSize: 56,
+            fontWeight: 500,
+            letterSpacing: "-0.02em",
           }}
         >
           sohom
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          <div style={{ fontSize: 44, fontWeight: 700, maxWidth: 900 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ fontSize: 40, fontWeight: 500, maxWidth: 900 }}>
             i make agents prove what they did.
           </div>
-          <div style={{ fontSize: 28, color: "#5c5a54" }}>
+          <div style={{ fontSize: 26, color: "#666666" }}>
             traces in, failing tasks and a regression eval out.
           </div>
-          <div style={{ fontSize: 22, color: "#ff4a1c", marginTop: 8 }}>
+          <div style={{ fontSize: 22, color: "#999999", marginTop: 12 }}>
             sxohom.xyz
           </div>
         </div>

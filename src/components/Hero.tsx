@@ -2,19 +2,19 @@ import { about, hero, nowLine } from "@/data/content";
 
 export function Hero() {
   return (
-    <section className="site-shell pt-10 pb-8 sm:pt-14" aria-labelledby="brand">
-      <p className="kicker mb-3">bangalore · ist</p>
-      <h1 id="brand" className="wordmark text-[clamp(4.5rem,18vw,9.5rem)]">
+    <section className="site-shell pt-12 pb-2 sm:pt-16" aria-labelledby="brand">
+      <h1
+        id="brand"
+        className="text-[1.75rem] font-medium tracking-tight text-ink sm:text-[1.875rem]"
+      >
         {hero.brand}
       </h1>
-      <p className="display mt-4 max-w-2xl text-[clamp(1.6rem,4vw,2.6rem)]">
+      <p className="mt-6 text-[1.125rem] leading-relaxed text-ink sm:text-[1.1875rem]">
         {hero.owning}
       </p>
-      <p className="mt-3 max-w-xl text-lg text-muted">{hero.sub}</p>
-      <p className="mt-6 max-w-2xl">{about.paragraphs[0]}</p>
-      <p className="mono mt-5 inline-flex border border-border bg-[var(--field)] px-3 py-2 text-sm">
-        <span className="cursor-blink">{nowLine}</span>
-      </p>
+      <p className="mt-2 text-muted">{hero.sub}</p>
+      <p className="mt-8 text-[1.0625rem] leading-relaxed">{about.paragraphs[0]}</p>
+      <p className="mt-6 text-sm text-muted">{nowLine}</p>
     </section>
   );
 }

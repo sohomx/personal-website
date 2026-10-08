@@ -18,7 +18,7 @@ export function CopyEmail({ email }: { email: string }) {
   return (
     <button
       type="button"
-      className="btn"
+      className="quiet-link cursor-pointer border-0 bg-transparent p-0 text-inherit underline-offset-[0.18em] hover:underline"
       onClick={onCopy}
       aria-label={copied ? "email copied" : `copy email ${email}`}
     >

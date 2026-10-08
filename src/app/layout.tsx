@@ -1,39 +1,16 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import {
-  Big_Shoulders,
-  Figtree,
-  IBM_Plex_Mono,
-  Patrick_Hand,
-} from "next/font/google";
+import { IBM_Plex_Mono } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
-import { ThemeInit } from "@/components/ThemeInit";
 import { site } from "@/data/content";
 import "./globals.css";
-
-const display = Big_Shoulders({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
-});
-
-const body = Figtree({
-  variable: "--font-body",
-  subsets: ["latin"],
-});
 
 const mono = IBM_Plex_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
-});
-
-const hand = Patrick_Hand({
-  variable: "--font-hand",
-  subsets: ["latin"],
-  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -68,14 +45,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${body.variable} ${mono.variable} ${hand.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <head>
-        <ThemeInit />
-      </head>
+    <html lang="en" className={`${mono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
         <a href="#main" className="skip-link">
           skip to content

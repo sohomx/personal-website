@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { OpenIssueDemo } from "@/components/OpenIssueDemo";
-import { RefuseEasterEgg } from "@/components/RefuseEasterEgg";
 import { gauntletWeighting, getProject, projects } from "@/data/content";
 
 type Props = {
@@ -42,76 +41,79 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <article className="site-shell py-10">
-      <p className="kicker">
-        <Link href="/#projects" className="hover:text-accent">
+      <p className="text-sm text-muted">
+        <Link href="/#projects" className="quiet-link">
           ← stuff i&apos;ve made
         </Link>
       </p>
-      <header className="mt-4 max-w-3xl">
-        <h1 className="display text-[clamp(2.2rem,6vw,3.8rem)]">{project.title}</h1>
-        <p className="mono mt-2 text-sm text-muted">
+      <header className="mt-6">
+        <h1 className="text-[1.75rem] font-medium tracking-tight sm:text-[1.875rem]">
+          {project.title}
+        </h1>
+        <p className="mt-2 text-sm text-muted">
           {project.subtitle} · {project.when}
         </p>
       </header>
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_16rem]">
-        <div className="max-w-2xl space-y-5">
-          {project.paragraphs.map((para) => (
-            <p key={para.slice(0, 48)}>{para}</p>
-          ))}
-        </div>
+      <div className="mt-10 space-y-5 text-[1.0625rem] leading-relaxed">
+        {project.paragraphs.map((para) => (
+          <p key={para.slice(0, 48)}>{para}</p>
+        ))}
+      </div>
 
-        <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
-          <div className="border border-border p-4">
-            <h2 className="kicker">what i did</h2>
-            <ul className="mt-3 list-none space-y-2 p-0 text-sm">
-              {project.did.map((item) => (
-                <li key={item}>– {item}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="border border-border p-4">
-            <h2 className="kicker">how</h2>
-            <ul className="mt-3 list-none space-y-2 p-0 text-sm">
-              {project.how.map((item) => (
-                <li key={item}>– {item}</li>
-              ))}
-            </ul>
-          </div>
-        </aside>
+      <div className="mt-12 grid gap-8 sm:grid-cols-2">
+        <section aria-labelledby="did-heading">
+          <h2 id="did-heading" className="text-sm font-medium">
+            what i did
+          </h2>
+          <ul className="mt-3 list-none space-y-2 p-0 text-sm text-muted">
+            {project.did.map((item) => (
+              <li key={item}>– {item}</li>
+            ))}
+          </ul>
+        </section>
+        <section aria-labelledby="how-heading">
+          <h2 id="how-heading" className="text-sm font-medium">
+            how
+          </h2>
+          <ul className="mt-3 list-none space-y-2 p-0 text-sm text-muted">
+            {project.how.map((item) => (
+              <li key={item}>– {item}</li>
+            ))}
+          </ul>
+        </section>
       </div>
 
       {project.slug === "solana-agent-safety" ? (
-        <pre className="terminal mt-10 overflow-x-auto p-4 whitespace-pre-wrap">
+        <pre className="code-block mt-10 overflow-x-auto p-4 whitespace-pre-wrap">
           {gauntletWeighting}
         </pre>
       ) : null}
 
       {project.slug === "openissue" ? <OpenIssueDemo /> : null}
-      {project.slug === "pocket-probable" ? <RefuseEasterEgg /> : null}
 
       <section className="mt-12" aria-labelledby="images-heading">
-        <h2 id="images-heading" className="display text-2xl">
+        <h2 id="images-heading" className="text-sm font-medium">
           images
         </h2>
-        <ul className="mt-4 grid list-none gap-4 p-0 md:grid-cols-2">
+        <ul className="mt-4 grid list-none gap-3 p-0">
           {project.images.map((img) => (
             <li key={img.label} className="placeholder-slot">
-              <p className="mono text-xs text-muted">{img.label}</p>
-              <p className="mt-2 text-sm">{img.caption}</p>
+              <p className="mono text-xs text-faint">{img.label}</p>
+              <p className="mt-2 text-sm text-muted">{img.caption}</p>
             </li>
           ))}
         </ul>
       </section>
 
       <section className="mt-12" aria-labelledby="artifacts-heading">
-        <h2 id="artifacts-heading" className="display text-2xl">
+        <h2 id="artifacts-heading" className="text-sm font-medium">
           artifacts
         </h2>
-        <ul className="mt-4 flex list-none flex-wrap gap-3 p-0">
+        <ul className="mt-4 flex list-none flex-wrap gap-x-5 gap-y-2 p-0 text-sm">
           {project.artifacts.map((a) => (
             <li key={a.href}>
-              <a className="btn" href={a.href} rel="noopener noreferrer">
+              <a className="quiet-link" href={a.href} rel="noopener noreferrer">
                 {a.label}
               </a>
             </li>
@@ -120,18 +122,18 @@ export default async function ProjectPage({ params }: Props) {
       </section>
 
       <nav
-        className="mt-14 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:justify-between"
+        className="mt-14 flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted sm:flex-row sm:justify-between"
         aria-label="adjacent projects"
       >
         {prev ? (
-          <Link href={`/projects/${prev.slug}/`} className="mono text-sm hover:text-accent">
+          <Link href={`/projects/${prev.slug}/`} className="quiet-link">
             ← {prev.title}
           </Link>
         ) : (
           <span />
         )}
         {next ? (
-          <Link href={`/projects/${next.slug}/`} className="mono text-sm hover:text-accent">
+          <Link href={`/projects/${next.slug}/`} className="quiet-link">
             {next.title} →
           </Link>
         ) : (
