@@ -1,6 +1,6 @@
 # map of my internet
 
-> people whose sites i keep going back to. tap a station.
+> people whose sites i keep going back to.
 
 60 stations, 11 lines.
 

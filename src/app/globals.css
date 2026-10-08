@@ -414,6 +414,34 @@ a:hover {
   margin-inline: auto;
 }
 
+.map-mode-toggle {
+  display: inline-flex;
+  margin-top: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.15rem;
+  background: color-mix(in srgb, var(--field) 70%, var(--bg));
+  gap: 0.1rem;
+}
+
+.map-mode-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.8125rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.map-mode-btn.is-active {
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+}
+
 .metro-wrap {
   position: relative;
   border: 1px solid var(--border);
@@ -421,8 +449,115 @@ a:hover {
   background:
     radial-gradient(ellipse at 20% 10%, color-mix(in srgb, #d8d2c4 35%, transparent), transparent 50%),
     color-mix(in srgb, var(--field) 55%, var(--bg));
-  padding: 1.1rem 0.5rem 0.85rem;
+  padding: 1.25rem 1rem 1rem;
   overflow: visible;
+}
+
+.walk-wrap {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 0.85rem;
+  background: #f7f7f4;
+  overflow: visible;
+}
+
+.walk-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 0.85rem;
+}
+
+.walk-frame {
+  position: relative;
+  width: 1280px;
+  max-width: none;
+  aspect-ratio: 1280 / 720;
+  min-height: 360px;
+}
+
+@media (min-width: 820px) {
+  .walk-scroll {
+    overflow: visible;
+  }
+
+  .walk-frame {
+    width: 100%;
+  }
+}
+
+.walk-basemap {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.85rem;
+  user-select: none;
+  pointer-events: none;
+}
+
+.walk-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.walk-trail {
+  opacity: 0.92;
+}
+
+.walk-pill-text {
+  fill: #fafaf7;
+  font-size: 9px;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+}
+
+.walk-name {
+  font-size: 11px;
+  font-weight: 500;
+  font-family: inherit;
+  fill: #3a3a36;
+  paint-order: stroke;
+  stroke: color-mix(in srgb, #f7f7f4 90%, transparent);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+@media (min-width: 820px) {
+  .walk-name {
+    font-size: 12px;
+  }
+}
+
+.walk-waypoint-link {
+  cursor: pointer;
+  outline: none;
+}
+
+.walk-waypoint-link:hover .walk-name,
+.walk-waypoint-link:focus-visible .walk-name {
+  fill: #1a1a18;
+  text-decoration: underline;
+}
+
+.walk-waypoint-link:focus-visible .walk-dot {
+  filter: drop-shadow(0 0 0.5px #1a1a18);
+}
+
+.walk-extra-label {
+  font-size: 10px;
+  fill: #5c5c58;
+  font-family: inherit;
+}
+
+.walk-tooltip a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
 }
 
 .metro-desktop {

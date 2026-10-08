@@ -26,7 +26,7 @@ export type MetroLine = {
 
 export const internetIntro = {
   title: "map of my internet",
-  lead: "people whose sites i keep going back to. tap a station.",
+  lead: "people whose sites i keep going back to.",
 } as const;
 
 const PEOPLE: Record<string, Omit<Person, "avatar">> = {

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { InternetMapShell } from "@/components/InternetMapShell";
 import { JsonLd } from "@/components/JsonLd";
-import { MetroMap } from "@/components/MetroMap";
 import { StationIndex } from "@/components/StationIndex";
 import {
   getPeopleStats,
@@ -12,18 +12,18 @@ import {
 export const metadata: Metadata = {
   title: "map of my internet",
   description:
-    "A Namma Metro-style map of people Sohom Pal keeps going back to: 60 stations across topic lines for evals, agents, tools, research, systems, design, and writing.",
+    "A topo trail map and Namma Metro-style map of people Sohom Pal keeps going back to: 60 stations across topic trails for evals, agents, tools, research, systems, design, and writing.",
   alternates: { canonical: "/internet/" },
   openGraph: {
     title: "map of my internet · Sohom Pal",
     description:
-      "People whose sites Sohom keeps going back to, drawn as a quiet Bangalore metro map.",
+      "People whose sites Sohom keeps going back to, drawn as a quiet topo trail map (or take the metro).",
     url: "/internet/",
   },
   twitter: {
     title: "map of my internet · Sohom Pal",
     description:
-      "People whose sites Sohom keeps going back to, drawn as a quiet Bangalore metro map.",
+      "People whose sites Sohom keeps going back to, drawn as a quiet topo trail map (or take the metro).",
   },
 };
 
@@ -44,26 +44,13 @@ export default function InternetPage() {
           {internetIntro.title}
         </h1>
         <p className="mt-4 max-w-xl text-muted">{internetIntro.lead}</p>
-        <p className="mt-3 text-sm text-faint">
-          {personCount} stations, {lineCount} lines
-        </p>
-        <ul className="metro-legend list-none p-0" aria-label="line legend">
-          {metroLines.map((line) => (
-            <li key={line.id} className="metro-legend-item">
-              <span
-                className="metro-chip"
-                style={{ background: line.color }}
-                aria-hidden="true"
-              />
-              <span>{line.name}</span>
-            </li>
-          ))}
-        </ul>
       </div>
 
-      <div className="metro-shell mt-8">
-        <MetroMap lines={metroLines} />
-      </div>
+      <InternetMapShell
+        lines={metroLines}
+        personCount={personCount}
+        lineCount={lineCount}
+      />
 
       <StationIndex lines={metroLines} />
     </article>
