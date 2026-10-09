@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { IBM_Plex_Mono } from "next/font/google";
 import { Footer } from "@/components/Footer";
@@ -11,6 +11,11 @@ const mono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
 });
+
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#f7f7f8",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
