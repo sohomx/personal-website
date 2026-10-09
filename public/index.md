@@ -6,11 +6,16 @@ sohom pal. AI engineer. Based in Bangalore, India.
 
 ai engineer. building something new right now, more on that here soon. until the end of july 2026 i was at pocket, working on probable, a prediction-market agent, after spending april at network school with the pocket team. before that: lossfunk research on beacon, and safety evals for agents that touch solana.
 
-now: building something new. i'll write about it here soon.
+now: heads down on something new.
+
+- [the map of my internet](https://sxohom.xyz/internet/)
+- [tools i use for evals](https://sxohom.xyz/tools/)
+- [things you could buy](https://sxohom.xyz/buy/)
+- [colophon](https://sxohom.xyz/colophon/)
 
 ## Contact
 
-if you have an agent you can't prove works, send me a trace.
+if you have an agent you can't prove works, [send me a trace](mailto:sohom377@gmail.com).
 
 - email: sohom377@gmail.com
 - X: https://x.com/sxohom

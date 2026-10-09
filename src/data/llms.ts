@@ -1,8 +1,8 @@
 import { buildBuyMarkdown } from "./buy";
 import {
   about,
-  contact,
   hero,
+  introLinks,
   nowLine,
   projects,
   receipts,
@@ -31,9 +31,11 @@ ${about.paragraphs[0]}
 
 ${nowLine}
 
+${introLinks.map((item) => `- [${item.label}](${site.url}${item.href})`).join("\n")}
+
 ## Contact
 
-${contact.line}
+if you have an agent you can't prove works, [send me a trace](mailto:${site.email}).
 
 - email: ${site.email}
 - X: ${site.links.x}
@@ -161,7 +163,7 @@ ${projectLinks}
 
 ## Contact
 
-${contact.line}
+if you have an agent you can't prove works, [send me a trace](mailto:${site.email}).
 
 - Email: ${site.email}
 - X: ${site.links.x}

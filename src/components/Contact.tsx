@@ -1,5 +1,5 @@
 import { CopyEmail } from "@/components/CopyEmail";
-import { contact, site } from "@/data/content";
+import { site } from "@/data/content";
 
 export function Contact() {
   return (
@@ -11,7 +11,13 @@ export function Contact() {
       <h2 id="contact-heading" className="sr-only">
         contact
       </h2>
-      <p className="max-w-xl">{contact.line}</p>
+      <p className="max-w-xl">
+        if you have an agent you can&apos;t prove works,{" "}
+        <a href={`mailto:${site.email}`} className="quiet-link">
+          send me a trace
+        </a>
+        .
+      </p>
       <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted">
         <CopyEmail email={site.email} />
         <a

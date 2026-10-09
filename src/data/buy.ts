@@ -11,7 +11,7 @@ export type BuyItem = {
 
 export const buyIntro = {
   title: "things you could buy",
-  lead: "stuff i actually use in bangalore. no affiliate links. prices in usd, approx.",
+  lead: "stuff i actually use. no affiliate links. prices in usd, approx.",
 } as const;
 
 /** 15 items in research order. MacBook Air swapped for 14-inch MacBook Pro. Fitbit Air, not Inspire 3. */

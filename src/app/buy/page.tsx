@@ -6,18 +6,18 @@ import { buyBackups, buyIntro, buyItems } from "@/data/buy";
 export const metadata: Metadata = {
   title: "things you could buy",
   description:
-    "Things Sohom Pal actually uses in Bangalore: desk gear, sleep upgrades, software, and a MacBook Pro. No affiliate links. Prices in USD.",
+    "Things Sohom Pal actually uses: desk gear, sleep upgrades, software, and a MacBook Pro. No affiliate links. Prices in USD.",
   alternates: { canonical: "/buy/" },
   openGraph: {
     title: "things you could buy · Sohom Pal",
     description:
-      "Stuff Sohom actually uses in Bangalore. No affiliate links. Prices in USD.",
+      "Stuff Sohom actually uses. No affiliate links. Prices in USD.",
     url: "/buy/",
   },
   twitter: {
     title: "things you could buy · Sohom Pal",
     description:
-      "Stuff Sohom actually uses in Bangalore. No affiliate links. Prices in USD.",
+      "Stuff Sohom actually uses. No affiliate links. Prices in USD.",
   },
 };
 

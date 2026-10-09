@@ -45,8 +45,14 @@ export const about = {
   ],
 } as const;
 
-export const nowLine =
-  "now: building something new. i'll write about it here soon." as const;
+export const nowLine = "now: heads down on something new." as const;
+
+export const introLinks = [
+  { href: "/internet/", label: "the map of my internet" },
+  { href: "/tools/", label: "tools i use for evals" },
+  { href: "/buy/", label: "things you could buy" },
+  { href: "/colophon/", label: "colophon" },
+] as const;
 
 export type Receipt = {
   id: string;
