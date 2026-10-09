@@ -195,7 +195,6 @@ export const buyBackups = [
   { item: "soft foam earplugs, one unopened pack", shelf: "2-3 years" },
   { item: "blackout curtain clips / spare curtain rings", shelf: "forever" },
   { item: "toothbrush heads or a spare brush", shelf: "forever" },
-  { item: "underwear, plain t-shirts, socks", shelf: "forever" },
   {
     item: "a second pair of cheap spectacles if you wear them",
     shelf: "forever",
