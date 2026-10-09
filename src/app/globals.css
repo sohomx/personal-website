@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
   --bg: #f7f7f8;
   --ink: #1a1a1a;
   --muted: #666666;
@@ -8,18 +9,6 @@
   --border: #e5e5e5;
   --code-bg: #f0f0f1;
   --field: #f0f0f1;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #141414;
-    --ink: #e8e8e8;
-    --muted: #999999;
-    --faint: #777777;
-    --border: #2a2a2a;
-    --code-bg: #1c1c1c;
-    --field: #1c1c1c;
-  }
 }
 
 @theme inline {
@@ -177,12 +166,6 @@ a:hover {
   height: 100%;
   object-fit: contain;
   background: #f0f0f1;
-}
-
-@media (prefers-color-scheme: dark) {
-  .buy-tile img {
-    background: #1c1c1c;
-  }
 }
 
 .buy-card:hover .buy-tile {

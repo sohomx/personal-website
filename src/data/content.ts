@@ -4,7 +4,7 @@ export const site = {
   displayName: "sohom pal",
   title: "Sohom Pal, AI engineer",
   description:
-    "Sohom Pal is an AI engineer at Pocket working on Probable. Proof layers, evals, traces, and safety checks for agents that handle real decisions. Based in Bangalore.",
+    "Sohom Pal is an AI engineer working on proof layers, evals, traces, and safety checks for agents that handle real decisions. Based in Bangalore.",
   location: "bangalore",
   homeLocation: {
     locality: "Bangalore",
@@ -41,12 +41,12 @@ export const hero = {
 
 export const about = {
   paragraphs: [
-    "ai engineer at pocket, working on probable, a prediction-market agent. i spent april 2026 at network school with the pocket team, then stayed on. before that: lossfunk research on beacon, and safety evals for agents that touch solana.",
+    "ai engineer. building something new right now, more on that here soon. until the end of july 2026 i was at pocket, working on probable, a prediction-market agent, after spending april at network school with the pocket team. before that: lossfunk research on beacon, and safety evals for agents that touch solana.",
   ],
 } as const;
 
 export const nowLine =
-  "now: building the proof layer for probable at pocket." as const;
+  "now: building something new. i'll write about it here soon." as const;
 
 export type Receipt = {
   id: string;
@@ -106,13 +106,13 @@ export const projects: Project[] = [
     slug: "pocket-probable",
     title: "pocket / probable",
     subtitle: "the proof layer",
-    when: "apr 2026 to now",
+    when: "apr 2026 to july 2026",
     box: [
       "what you have left after the run, not the last chat bubble.",
       "benchmark on frozen cases, evidence ledger, telegram live-proof, paper-only research brain.",
     ],
     paragraphs: [
-      "i spent april at network school with the pocket team, close to the product, and then i stayed on probable. what i kept running into was not whether the agent could talk about a market. it was what you have left after the run. a final message is easy. knowing which prompt caused it, which tools ran, what evidence came back, and whether anything actually happened is the part that usually disappears. that is the part i care about. i started calling it the proof layer, mostly so i would stop accepting the last bubble in the chat as the result.",
+      "i spent april at network school with the pocket team, close to the product, and then i stayed on probable until the end of july. what i kept running into was not whether the agent could talk about a market. it was what you have left after the run. a final message is easy. knowing which prompt caused it, which tools ran, what evidence came back, and whether anything actually happened is the part that usually disappears. that is the part i care about. i started calling it the proof layer, mostly so i would stop accepting the last bubble in the chat as the result.",
       "the benchmark came out of that. i wrote, in the pr, that we needed something that tells us whether probable is actually making good prediction-market decisions, instead of only producing good-looking answers. so it runs the real agent on frozen cases. it scores the action and the bankroll impact, and it keeps a bad provider out of the product score. a timeout is not the model being wrong. if you mix those, you end up tuning the agent to survive your infrastructure.",
       "research had the same hole. you could count sources after the fact and still not know what the answer was allowed to claim. i wanted the ledger first. trust decisions come from what was actually retrieved, not from a paragraph that sounds sourced. if the evidence is thin or the sources disagree, the answer is supposed to get shorter and less sure, not smoother.",
       "i also got tired of evals that could look green while the prompt, the tools, and the runtime were not really in the test. that is the sentence i wrote on the sign-off draft. a fixture can pass forever if the thing you changed never ran. the telegram harness was my way of checking the other direction. a live proof only counted if the workflow id, the tool trace, the database row, and the ops row joined up. i had a case where the snippet we stored was null and telegram still had the answer. that is the kind of thing that makes me not trust a green check.",

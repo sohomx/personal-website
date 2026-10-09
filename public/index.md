@@ -2,11 +2,11 @@
 
 > i make agents prove what they did. traces in, failing tasks and a regression eval out.
 
-sohom pal. AI engineer at Pocket (Probable). Based in Bangalore, India.
+sohom pal. AI engineer. Based in Bangalore, India.
 
-ai engineer at pocket, working on probable, a prediction-market agent. i spent april 2026 at network school with the pocket team, then stayed on. before that: lossfunk research on beacon, and safety evals for agents that touch solana.
+ai engineer. building something new right now, more on that here soon. until the end of july 2026 i was at pocket, working on probable, a prediction-market agent, after spending april at network school with the pocket team. before that: lossfunk research on beacon, and safety evals for agents that touch solana.
 
-now: building the proof layer for probable at pocket.
+now: building something new. i'll write about it here soon.
 
 ## Contact
 
@@ -26,7 +26,7 @@ if you have an agent you can't prove works, send me a trace.
 
 ## Projects
 
-- [pocket / probable](https://sxohom.xyz/projects/pocket-probable/) (apr 2026 to now): the proof layer. [markdown](https://sxohom.xyz/projects/pocket-probable.md)
+- [pocket / probable](https://sxohom.xyz/projects/pocket-probable/) (apr 2026 to july 2026): the proof layer. [markdown](https://sxohom.xyz/projects/pocket-probable.md)
 - [beacon](https://sxohom.xyz/projects/beacon/) (2025): sycophancy benchmark. [markdown](https://sxohom.xyz/projects/beacon.md)
 - [solana agent safety](https://sxohom.xyz/projects/solana-agent-safety/) (2025 to 2026): gauntlet · sim engine · idl agent. [markdown](https://sxohom.xyz/projects/solana-agent-safety.md)
 - [openissue](https://sxohom.xyz/projects/openissue/) (2026): deterministic trace to incident. [markdown](https://sxohom.xyz/projects/openissue.md)

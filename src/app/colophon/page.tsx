@@ -57,7 +57,7 @@ export default function ColophonPage() {
           <li>ink · #1a1a1a</li>
           <li>muted · #666 / #999</li>
           <li>hairline · #e5e5e5</li>
-          <li>dark · quiet prefers-color-scheme inverse</li>
+          <li>light only · no dark inverse</li>
         </ul>
       </section>
 

@@ -20,11 +20,6 @@ export function personNode() {
       },
     },
     sameAs: [...site.sameAs],
-    worksFor: {
-      "@type": "Organization" as const,
-      name: "Pocket",
-      url: site.links.pocket,
-    },
   };
 }
 
