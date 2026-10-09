@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { OpenIssueDemo } from "@/components/OpenIssueDemo";
 import { ProjectJsonLd } from "@/components/ProjectJsonLd";
+import { ProjectProofs } from "@/components/ProjectProofs";
 import { gauntletWeighting, getProject, projects, site } from "@/data/content";
 
 type Props = {
@@ -52,7 +53,7 @@ export default async function ProjectPage({ params }: Props) {
     <article className="site-shell py-10">
       <ProjectJsonLd project={project} />
       <p className="text-sm text-muted">
-        <Link href="/#projects" className="quiet-link">
+        <Link href="/projects/" className="quiet-link">
           back to projects
         </Link>
       </p>
@@ -111,19 +112,7 @@ export default async function ProjectPage({ params }: Props) {
 
       {showOpenIssueDemo ? <OpenIssueDemo /> : null}
 
-      <section className="mt-12" aria-labelledby="images-heading">
-        <h2 id="images-heading" className="text-sm font-medium">
-          images
-        </h2>
-        <ul className="mt-4 grid list-none gap-3 p-0">
-          {project.images.map((img) => (
-            <li key={img.label} className="placeholder-slot">
-              <p className="mono text-xs text-faint">{img.label}</p>
-              <p className="mt-2 text-sm text-muted">{img.caption}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <ProjectProofs proofs={project.proofs} />
 
       <section className="mt-12" aria-labelledby="artifacts-heading">
         <h2 id="artifacts-heading" className="text-sm font-medium">
@@ -155,9 +144,7 @@ export default async function ProjectPage({ params }: Props) {
           <Link href={`/projects/${next.slug}/`} className="quiet-link">
             next: {next.title}
           </Link>
-        ) : (
-          <span />
-        )}
+        ) : null}
       </nav>
     </article>
   );

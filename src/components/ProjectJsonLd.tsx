@@ -51,7 +51,7 @@ export function ProjectJsonLd({ project }: { project: Project }) {
         "@type": "ListItem",
         position: 2,
         name: "projects",
-        item: `${site.url}/#projects`,
+        item: `${site.url}/projects/`,
       },
       {
         "@type": "ListItem",

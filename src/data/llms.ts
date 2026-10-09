@@ -52,6 +52,7 @@ ${projectLines}
 
 - [home](${site.url}/)
 - [home markdown](${site.url}/index.md)
+- [projects](${site.url}/projects/)
 - [colophon](${site.url}/colophon/)
 - [tools](${site.url}/tools/) · [markdown](${site.url}/tools.md)
 - [internet](${site.url}/internet/) · [markdown](${site.url}/internet.md)
@@ -153,6 +154,7 @@ ${nowLine}
 - [Colophon](${site.url}/colophon/)
 - [Tools](${site.url}/tools/): evals, tracing, testing, sims. [md](${site.url}/tools.md)
 - [Internet](${site.url}/internet/): topo trail / metro map of people i keep going back to (60 stations). [md](${site.url}/internet.md)
+- [Projects](${site.url}/projects/): index of work with public proof
 - [Things you could buy](${site.url}/buy/): desk, sleep, software, and a MacBook Pro
 
 ## Projects

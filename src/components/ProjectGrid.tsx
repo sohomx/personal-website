@@ -9,7 +9,9 @@ export function ProjectGrid() {
       aria-labelledby="projects-heading"
     >
       <h2 id="projects-heading" className="text-sm font-medium text-ink">
-        stuff i&apos;ve made
+        <Link href="/projects/" className="quiet-link">
+          stuff i&apos;ve made
+        </Link>
       </h2>
       <ul className="mt-6 list-none space-y-0 border-t border-border p-0">
         {projects.map((p) => (

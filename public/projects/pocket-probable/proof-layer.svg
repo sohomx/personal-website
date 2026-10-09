@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" role="img" aria-labelledby="t d">
+  <title id="t">proof layer flow</title>
+  <desc id="d">Labeled diagram of the proof layer: prompt, tools, evidence, side effects. Not a production screenshot. No production metrics.</desc>
+  <rect width="720" height="220" fill="#f7f7f8"/>
+  <text x="24" y="28" font-family="ui-monospace, SF Mono, Menlo, monospace" font-size="12" fill="#999">diagram · not a production screenshot · no metrics</text>
+  <!-- boxes -->
+  <rect x="24" y="56" width="140" height="88" fill="#fff" stroke="#e5e5e5"/>
+  <text x="40" y="92" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#1a1a1a">prompt</text>
+  <text x="40" y="114" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#666">what was asked</text>
+
+  <path d="M172 100 H204" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="212" y="56" width="140" height="88" fill="#fff" stroke="#e5e5e5"/>
+  <text x="228" y="92" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#1a1a1a">tools</text>
+  <text x="228" y="114" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#666">what ran</text>
+
+  <path d="M360 100 H392" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="400" y="56" width="140" height="88" fill="#fff" stroke="#e5e5e5"/>
+  <text x="416" y="92" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#1a1a1a">evidence</text>
+  <text x="416" y="114" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#666">what came back</text>
+
+  <path d="M548 100 H580" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#a)"/>
+
+  <rect x="588" y="56" width="108" height="88" fill="#fff" stroke="#e5e5e5"/>
+  <text x="604" y="92" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="15" fill="#1a1a1a">effect</text>
+  <text x="604" y="114" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#666">what happened</text>
+
+  <text x="24" y="190" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="13" fill="#666">a run leaves these joined. the last chat bubble alone is not the result.</text>
+
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6" fill="none" stroke="#1a1a1a"/>
+    </marker>
+  </defs>
+</svg>

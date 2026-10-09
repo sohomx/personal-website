@@ -11,7 +11,7 @@ export function Header() {
         <Link href="/" className="quiet-link text-ink">
           {site.displayName}
         </Link>
-        <Link href="/#projects" className="quiet-link">
+        <Link href="/projects/" className="quiet-link">
           projects
         </Link>
         <Link href="/tools/" className="quiet-link">
