@@ -9,6 +9,8 @@ import {
   site,
   type Project,
 } from "./content";
+import { buildInternetMarkdown } from "./internet";
+import { buildToolsMarkdown } from "./tools";
 
 export function buildHomeMarkdown(): string {
   const receiptLines = receipts.map((r) => `- [${r.line}](${r.href})`).join("\n");
@@ -51,6 +53,8 @@ ${projectLines}
 - [home](${site.url}/)
 - [home markdown](${site.url}/index.md)
 - [colophon](${site.url}/colophon/)
+- [tools](${site.url}/tools/) · [markdown](${site.url}/tools.md)
+- [internet](${site.url}/internet/) · [markdown](${site.url}/internet.md)
 - [things you could buy](${site.url}/buy/)
 - [llms.txt](${site.url}/llms.txt)
 - [llms-full.txt](${site.url}/llms-full.txt)
@@ -147,6 +151,8 @@ ${nowLine}
 - [Home (markdown)](${site.url}/index.md)
 - [Full plain text](${site.url}/llms-full.txt): every page in one file
 - [Colophon](${site.url}/colophon/)
+- [Tools](${site.url}/tools/): evals, tracing, testing, sims. [md](${site.url}/tools.md)
+- [Internet](${site.url}/internet/): topo trail / metro map of people i keep going back to (60 stations). [md](${site.url}/internet.md)
 - [Things you could buy](${site.url}/buy/): desk, sleep, software, and a MacBook Pro
 
 ## Projects
@@ -172,6 +178,8 @@ export function buildLlmsFullTxt(): string {
   const parts = [
     buildHomeMarkdown(),
     buildColophonMarkdown(),
+    buildToolsMarkdown(site.url),
+    buildInternetMarkdown(site.url),
     buildBuyMarkdown(site.url),
     ...projects.map((p) => buildProjectMarkdown(p)),
   ];
