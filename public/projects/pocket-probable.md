@@ -1,10 +1,10 @@
 # pocket / probable
 
-> the proof layer · apr 2026 to now
+> the proof layer · apr 2026 to july 2026
 
 Author: [Sohom Pal](https://sxohom.xyz/)
 
-i spent april at network school with the pocket team, close to the product, and then i stayed on probable. what i kept running into was not whether the agent could talk about a market. it was what you have left after the run. a final message is easy. knowing which prompt caused it, which tools ran, what evidence came back, and whether anything actually happened is the part that usually disappears. that is the part i care about. i started calling it the proof layer, mostly so i would stop accepting the last bubble in the chat as the result.
+i spent april at network school with the pocket team, close to the product, and then i stayed on probable until the end of july. what i kept running into was not whether the agent could talk about a market. it was what you have left after the run. a final message is easy. knowing which prompt caused it, which tools ran, what evidence came back, and whether anything actually happened is the part that usually disappears. that is the part i care about. i started calling it the proof layer, mostly so i would stop accepting the last bubble in the chat as the result.
 
 the benchmark came out of that. i wrote, in the pr, that we needed something that tells us whether probable is actually making good prediction-market decisions, instead of only producing good-looking answers. so it runs the real agent on frozen cases. it scores the action and the bankroll impact, and it keeps a bad provider out of the product score. a timeout is not the model being wrong. if you mix those, you end up tuning the agent to survive your infrastructure.
 

@@ -25,7 +25,7 @@ export function buildHomeMarkdown(): string {
 
 > ${hero.owning} ${hero.sub}
 
-${site.displayName}. ${site.jobTitle} at Pocket (Probable). Based in ${site.homeLocation.locality}, ${site.homeLocation.countryName}.
+${site.displayName}. ${site.jobTitle}. Based in ${site.homeLocation.locality}, ${site.homeLocation.countryName}.
 
 ${about.paragraphs[0]}
 
@@ -139,7 +139,7 @@ export function buildLlmsTxt(): string {
 
 > ${hero.owning} ${hero.sub}
 
-${site.displayName}. ${site.jobTitle} at Pocket. Bangalore, India.
+${site.displayName}. ${site.jobTitle}. Bangalore, India.
 
 ${about.paragraphs[0]}
 
