@@ -15,9 +15,9 @@ now: heads down on something new.
 
 ## Contact
 
-if you have an agent you can't prove works, [send me a trace](mailto:sohom377@gmail.com).
+if you have an agent you can't prove works, [send me a trace](mailto:hi@sxohom.xyz).
 
-- email: sohom377@gmail.com
+- email: hi@sxohom.xyz
 - X: https://x.com/sxohom
 - GitHub: https://github.com/sohomx
 - site: https://sxohom.xyz

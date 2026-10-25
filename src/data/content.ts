@@ -14,7 +14,7 @@ export const site = {
   timezone: "Asia/Kolkata",
   jobTitle: "AI engineer",
   url: "https://sxohom.xyz",
-  email: "sohom377@gmail.com",
+  email: "hi@sxohom.xyz",
   personId: "https://sxohom.xyz/#person",
   links: {
     github: "https://github.com/sohomx",
